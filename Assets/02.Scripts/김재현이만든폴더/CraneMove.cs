@@ -79,6 +79,7 @@ public class CraneMove : MonoBehaviour
 
     IEnumerator IdleStatus()
     {
+        Debug.Log("대기상태코루틴");
         // LayShooter의 컴포너틑에 들어가 있는 스크립트 LayShoot에 접근한다.
         LayShoot objectBShooter = LayShooter.GetComponent<LayShoot>();
         //해당 객체가 null이 아니라면.(해당 객제가 있다면)
@@ -112,7 +113,7 @@ public class CraneMove : MonoBehaviour
         Vector3 targetpositionX = new Vector3(PointA.position.x, CraneBody.transform.position.y, CraneBody.transform.position.z);
         CraneBody.transform.position = Vector3.Lerp(CraneBody.transform.position, targetpositionX, moveSpeed * Time.deltaTime);
         Debug.Log("Move3");
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         cranstatus = CraneStatus.Detected;
 
     }
@@ -145,8 +146,9 @@ public class CraneMove : MonoBehaviour
     {
 
         Debug.Log("다운리프트의 반복문 입장");
-        downSpeed = 3f;
+        downSpeed = 2f;
         Vector3 dir = new Vector3(0, -1f, 0); // Direction (downward)
+
         CraneLift.transform.position += dir * downSpeed * Time.deltaTime;
         yield return new WaitForSeconds(1f);
 
@@ -180,10 +182,10 @@ public class CraneMove : MonoBehaviour
         Debug.Log("포인트지점으로 옮기는 함수가 시작되는 부분이다.");
         Vector3 targetpositionX = new Vector3(PointB.position.x, CraneBody.transform.position.y, CraneBody.transform.position.z);
         CraneBody.transform.position = Vector3.Lerp(CraneBody.transform.position, targetpositionX, moveSpeed * Time.deltaTime);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         Vector3 targetpositionZ = new Vector3(CraneHoist.transform.position.x, CraneHoist.transform.position.y, PointB.position.z);
         CraneHoist.transform.position = Vector3.Lerp(CraneHoist.transform.position, targetpositionZ, moveSpeed * Time.deltaTime);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, PointB.position.y, CraneLift.transform.position.z);
         CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionY, moveSpeed * Time.deltaTime);
         yield return new WaitForSeconds(2f);

@@ -6,72 +6,37 @@ using UnityEngine;
 public class CoilCollision : MonoBehaviour
 
 {
-    public GameObject coil;
-    public GameObject liftRoot;
-    public GameObject liftPoint;
     public GameObject CraneManager;
     CraneMove cranemove;
+    private GameObject coil;
 
     void Awake()
     {
         cranemove = CraneManager.GetComponent<CraneMove>();
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
 
         if (collision.gameObject.tag == "Coil")
         {
+            coil = collision.gameObject;
             cranemove.StopLift();
+            collision.transform.SetParent(transform);
+            Debug.Log("부모바꾸는 디버그");
             cranemove.LiftStatus = false;
-            Debug.Log("충돌");
         }
 
         if (collision.gameObject.CompareTag("Skid"))
         {
-
-            Debug.Log("스키드와 충돌");
+            Debug.Log("Crash with Skid");
             cranemove.StopMovePoint();
-            GetComponent<BoxCollider>().enabled = false;
-            coil.GetComponent<CapsuleCollider>().enabled = true;
-            coil.transform.position = collision.transform.position + Vector3.up * 2.5f;
+            coil.transform.SetParent(collision.transform);
+            coil.transform.position = collision.transform.position;
             coil.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            // Skid 태그를 가진 오브젝트와의 충돌이 끝났을 때 호출되는 함수
-            DisconnectLiftPoint();
-
+            // Function called when a collision with an object with the Skid tag has ended
         }
     }
-
-    IEnumerator MoveCoilAfterDelay()
-    {
-        coil.GetComponent<CapsuleCollider>().enabled = false;
-        yield return new WaitForSeconds(0.3f);
-
-
-        // 움직이고자 하는 로직 추가
-        while (true)
-        {
-           MoveCoilWithLiftRoot();
-        }
-         
-    }
-
-    void MoveCoilWithLiftRoot()
-    {
-        coil.transform.position = liftPoint.transform.position;
-
-    }
-
-
-    void DisconnectLiftPoint()
-    {
-        // liftPoint와의 연결을 해제하는 로직 추가
-        // 예를 들어, liftPoint 변수를 null로 설정하거나 다른 초기화 작업을 수행할 수 있음
-        //GameObject skid = GameObject.Find("skid");
-        //coil.transform.position = skid.transform.position;
-        //liftPoint = null;
-    }
-
     // Start is called before the first frame update
 
     // Update is called once per frame
