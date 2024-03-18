@@ -21,15 +21,19 @@ public class CoilCollision : MonoBehaviour
         if (collision.gameObject.tag == "Coil")
         {
             coil = collision.gameObject;
-            cranemove.StopLift();
+            cranemove.LiftStatus = false;
+            cranemove.moveStatus = true;
+            cranemove.downSpeed = 0f;
+            Debug.Log($"downspeed : {cranemove.downSpeed}");
             collision.transform.SetParent(transform);
             Debug.Log("부모바꾸는 디버그");
-            cranemove.LiftStatus = false;
+           
         }
 
         if (collision.gameObject.CompareTag("Skid"))
         {
             Debug.Log("Crash with Skid");
+            cranemove.moveStatus = false;
             cranemove.StopMovePoint();
             coil.transform.SetParent(collision.transform);
             coil.transform.position = collision.transform.position;
