@@ -9,6 +9,8 @@ public class CoilCollision : MonoBehaviour
     public GameObject CraneManager;
     CraneMove cranemove;
     private GameObject coil;
+    public GameObject SkidGB;
+    SkidBool skidbool;
 
     void Awake()
     {
@@ -33,6 +35,9 @@ public class CoilCollision : MonoBehaviour
         if (collision.gameObject.CompareTag("Skid"))
         {
             Debug.Log("Crash with Skid");
+            SkidGB = collision.gameObject;
+            skidbool = SkidGB.GetComponent<SkidBool>();
+            skidbool.SkidUse = false;
             cranemove.moveStatus = false;
             cranemove.StopMovePoint();
             coil.transform.SetParent(collision.transform);

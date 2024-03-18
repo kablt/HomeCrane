@@ -16,6 +16,7 @@ public class CraneMove : MonoBehaviour
     public LayerMask CoilLayer; // 충돌할 레이어 변수;
     public bool LiftStatus = true;
     public bool moveStatus = true;
+    public Transform PointB;
     public Transform[] SkidPositions; 
 
     enum CraneStatus
@@ -171,20 +172,21 @@ public class CraneMove : MonoBehaviour
     //코일 충돌후 위치가 리프트로 업데이트 디고 있을떄 목표지점으로 이동하는 함수
     IEnumerator MovePoint()
     {
+        InitializePointB();
         downSpeed = 1f;
         Debug.Log("MovePoint로 넘어왔다.");
         yield return new WaitForSeconds(1f);
         Debug.Log("포인트지점으로 옮기는 함수가 시작되는 부분이다.");
-        Vector3 targetpositionX = new Vector3(SkidPositions[0].position.x, CraneBody.transform.position.y, CraneBody.transform.position.z);
+        Vector3 targetpositionX = new Vector3(PointB.position.x, CraneBody.transform.position.y, CraneBody.transform.position.z);
         CraneBody.transform.position = Vector3.Lerp(CraneBody.transform.position, targetpositionX, moveSpeed * Time.deltaTime);
         yield return new WaitForSeconds(1f);
-        Vector3 targetpositionZ = new Vector3(CraneHoist.transform.position.x, CraneHoist.transform.position.y, SkidPositions[0].position.z);
+        Vector3 targetpositionZ = new Vector3(CraneHoist.transform.position.x, CraneHoist.transform.position.y, PointB.position.z);
         CraneHoist.transform.position = Vector3.Lerp(CraneHoist.transform.position, targetpositionZ, moveSpeed * Time.deltaTime);
         yield return new WaitForSeconds(1f);
         
 
          
-        Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, SkidPositions[0].position.y, CraneLift.transform.position.z);
+        Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, PointB.position.y, CraneLift.transform.position.z);
         float distance = Vector3.Distance(CraneLift.transform.position, targetPositionY);
         while (distance > 0.01f && moveStatus == true)
         {
@@ -195,5 +197,21 @@ public class CraneMove : MonoBehaviour
         yield return new WaitForSeconds(2f);
         //해당위치 도착한 후 , 코일의 위치가 리프트의 특정위치로 업데이트되고있는 상황에서 리프트가 내려가는 매서드 실행. 내려가는동안 스키드의 특정부분과 충돌시 코일의 위치가 리프트의 특정 위치로 업데이트 되는 함수 종료. 
         //코일의 위치를 스키드의 특정위치로 옮기는 함수 만들어서 코일이 해당 위치에 놓여지는 것처럼 보이게 만들기
+    }
+
+    void InitializePointB()
+    {
+        foreach (Transform skidPosition in SkidPositions)
+        {
+            SkidBool skidBoolScript = skidPosition.GetComponent<SkidBool>();
+
+            // Check if the SkidBool script is attached and SkidUse is true
+            if (skidBoolScript != null && skidBoolScript.SkidUse)
+            {
+                // Set PointB to the current skidPosition
+                PointB = skidPosition;
+                break; // Exit the loop since we found a valid PointB
+            }
+        }
     }
 }
