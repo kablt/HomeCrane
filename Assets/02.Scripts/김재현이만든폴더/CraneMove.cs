@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,17 +8,18 @@ public class CraneMove : MonoBehaviour
 {
     public Transform PointA; //코일이 있는 위치
     public Transform LiftRollBack; // 리프트가 대기할떄의 y축 위치
-    public float moveSpeed = 3f; // 크레인이 움직이는 속도
-    public float downSpeed = 1f; // 크레인 내려가는 속도
+    public float moveSpeed = 4f; // 크레인이 움직이는 속도
+    public float downSpeed = 4f; // 크레인 내려가는 속도
     public GameObject CraneBody; // 움직일 크레인 body
     public GameObject CraneHoist; // 움직일 크레인 hosit
     public GameObject CraneLift; // 움직일 크레인 lift
     public GameObject LayShooter; // ray를 쏘는 객체
+    public CoilCollision coilcollision;
     public LayerMask CoilLayer; // 충돌할 레이어 변수;
     public bool LiftStatus = true;
     public bool moveStatus = true;
     public Transform PointB;
-    public Transform[] SkidPositions; 
+    public Transform[] SkidPositions;
 
     enum CraneStatus
     {
@@ -34,7 +36,7 @@ public class CraneMove : MonoBehaviour
     }
     void Update()
     {
-        
+
         switch (cranstatus)
         {
             case CraneStatus.Idle:
@@ -54,7 +56,7 @@ public class CraneMove : MonoBehaviour
                 Debug.Log("오류가 발생했습니다");
                 break;
         }
-        
+
     }
 
     //-------------------------------------------------------------IDLE------------------------------------------------------------------------
@@ -96,7 +98,7 @@ public class CraneMove : MonoBehaviour
     //코일을 집기위해 APoint로 옮기는 함수
     IEnumerator MovementRoutine()
     {
-        downSpeed = 2f;
+        downSpeed = 4f;
         // 리프트 y축으로 올리는거
         Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, LiftRollBack.position.y, CraneLift.transform.position.z);
         CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionY, moveSpeed * Time.deltaTime);
@@ -131,7 +133,7 @@ public class CraneMove : MonoBehaviour
         Debug.Log("리프트 내려가는중");
         Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, PointA.position.y, CraneLift.transform.position.z);
         float distance = Vector3.Distance(CraneLift.transform.position, targetPositionY);
-        if(distance > 0.01f && LiftStatus ==true)
+        if (distance > 0.01f && LiftStatus == true)
         {
             Debug.Log("여기도 반복되고있는가");
             CraneLift.transform.position = Vector3.MoveTowards(CraneLift.transform.position, targetPositionY, downSpeed * Time.deltaTime);
@@ -141,17 +143,17 @@ public class CraneMove : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        if(downSpeed == 0f && cranstatus != CraneStatus.CoilMove)
+        if (downSpeed == 0f && cranstatus != CraneStatus.CoilMove)
         {
             //다시 올라가는거
             Vector3 targetPositionYT = new Vector3(CraneLift.transform.position.x, LiftRollBack.position.y, CraneLift.transform.position.z);
-            CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionYT, moveSpeed * Time.deltaTime);     
+            CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionYT, moveSpeed * Time.deltaTime);
             // Once the lift has reached the target position, change crane status
             Debug.Log("코일상탭전환체크");
             yield return new WaitForSeconds(3f);
             cranstatus = CraneStatus.CoilMove;
         }
-  
+
     }
     //-----------------------------------------(MoveTOSkid)-------------------------------------------------------------------------
 
@@ -173,22 +175,22 @@ public class CraneMove : MonoBehaviour
     IEnumerator MovePoint()
     {
         InitializePointB();
-        downSpeed = 1f;
+        downSpeed = 4f;
         Debug.Log("MovePoint로 넘어왔다.");
         yield return new WaitForSeconds(1f);
         Debug.Log("포인트지점으로 옮기는 함수가 시작되는 부분이다.");
         Vector3 targetpositionX = new Vector3(PointB.position.x, CraneBody.transform.position.y, CraneBody.transform.position.z);
-        CraneBody.transform.position = Vector3.Lerp(CraneBody.transform.position, targetpositionX, moveSpeed * Time.deltaTime);
+        CraneBody.transform.position = Vector3.Lerp(CraneBody.transform.position, targetpositionX, downSpeed * Time.deltaTime);
         yield return new WaitForSeconds(1f);
         Vector3 targetpositionZ = new Vector3(CraneHoist.transform.position.x, CraneHoist.transform.position.y, PointB.position.z);
-        CraneHoist.transform.position = Vector3.Lerp(CraneHoist.transform.position, targetpositionZ, moveSpeed * Time.deltaTime);
+        CraneHoist.transform.position = Vector3.Lerp(CraneHoist.transform.position, targetpositionZ, downSpeed * Time.deltaTime);
         yield return new WaitForSeconds(1f);
-        
 
-         
+
+
         Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, PointB.position.y, CraneLift.transform.position.z);
         float distance = Vector3.Distance(CraneLift.transform.position, targetPositionY);
-        while (distance > 0.01f && moveStatus == true)
+        if (distance > 0.01f && moveStatus == true)
         {
             CraneLift.transform.position = Vector3.MoveTowards(CraneLift.transform.position, targetPositionY, downSpeed * Time.deltaTime);
             yield return null;
@@ -201,17 +203,86 @@ public class CraneMove : MonoBehaviour
 
     void InitializePointB()
     {
-        foreach (Transform skidPosition in SkidPositions)
+        float priorNum = coilcollision.CoilNumber;
+        if (priorNum >= 0 && priorNum < 5)
         {
-            SkidBool skidBoolScript = skidPosition.GetComponent<SkidBool>();
+            int startIndex = 0; 
+            int endIndex = 4;   
 
-            // Check if the SkidBool script is attached and SkidUse is true
-            if (skidBoolScript != null && skidBoolScript.SkidUse)
+            for (int i = startIndex; i <= endIndex && i < SkidPositions.Length; i++)
             {
-                // Set PointB to the current skidPosition
-                PointB = skidPosition;
-                break; // Exit the loop since we found a valid PointB
+                Transform skidPosition = SkidPositions[i];
+                SkidBool skidBoolScript = skidPosition.GetComponent<SkidBool>();
+
+                // Check if the SkidBool script is attached and SkidUse is true
+                if (skidBoolScript != null && skidBoolScript.SkidUse)
+                {
+                    // Set PointB to the current skidPosition
+                    PointB = skidPosition;
+                    break; // Exit the loop since we found a valid PointB
+                }
             }
+        }
+        else if(priorNum >4 && priorNum <10)
+        {
+            int startIndex = 5;
+            int endIndex = 9;
+
+            for (int i = startIndex; i <= endIndex && i < SkidPositions.Length; i++)
+            {
+                Transform skidPosition = SkidPositions[i];
+                SkidBool skidBoolScript = skidPosition.GetComponent<SkidBool>();
+
+                // Check if the SkidBool script is attached and SkidUse is true
+                if (skidBoolScript != null && skidBoolScript.SkidUse)
+                {
+                    // Set PointB to the current skidPosition
+                    PointB = skidPosition;
+                    break; // Exit the loop since we found a valid PointB
+                }
+            }
+        }
+        else if (priorNum > 9 && priorNum < 15)
+        {
+            int startIndex = 10;
+            int endIndex = 14;
+
+            for (int i = startIndex; i <= endIndex && i < SkidPositions.Length; i++)
+            {
+                Transform skidPosition = SkidPositions[i];
+                SkidBool skidBoolScript = skidPosition.GetComponent<SkidBool>();
+
+                // Check if the SkidBool script is attached and SkidUse is true
+                if (skidBoolScript != null && skidBoolScript.SkidUse)
+                {
+                    // Set PointB to the current skidPosition
+                    PointB = skidPosition;
+                    break; // Exit the loop since we found a valid PointB
+                }
+            }
+        }
+        else if (priorNum > 14 && priorNum < 20)
+        {
+            int startIndex = 15;
+            int endIndex = 19;
+
+            for (int i = startIndex; i <= endIndex && i < SkidPositions.Length; i++)
+            {
+                Transform skidPosition = SkidPositions[i];
+                SkidBool skidBoolScript = skidPosition.GetComponent<SkidBool>();
+
+                // Check if the SkidBool script is attached and SkidUse is true
+                if (skidBoolScript != null && skidBoolScript.SkidUse)
+                {
+                    // Set PointB to the current skidPosition
+                    PointB = skidPosition;
+                    break; // Exit the loop since we found a valid PointB
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("등록되어있지않은 코일입니다");
         }
     }
 }
