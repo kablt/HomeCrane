@@ -10,7 +10,7 @@ public class LayShoot : MonoBehaviour
     {
         cranemove = CraneManager.GetComponent<CraneMove>();
     }
-    public float rayDis = 10f;
+    public float rayDis = 20f;
     public void ShootAndCheckForCoil()
     {
         // Shoot a ray from the current GameObject in the forward direction

@@ -92,7 +92,6 @@ public class CraneMove : MonoBehaviour
     //대기상태일떄 막대기에서 ray쏴서 코일이 있는지 상시 체크. 있으면 PointA로 이동
     public void MovePickUpPoint()
     {
-        Debug.Log("디텍트비교용디버그");
         StartCoroutine(MovementRoutine());
     }
     //코일을 집기위해 APoint로 옮기는 함수
@@ -102,17 +101,17 @@ public class CraneMove : MonoBehaviour
         // 리프트 y축으로 올리는거
         Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, LiftRollBack.position.y, CraneLift.transform.position.z);
         CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionY, moveSpeed * Time.deltaTime);
-        Debug.Log("Move1");
+        //Debug.Log("Move1");
         yield return new WaitForSeconds(1f);
         //Hoist z축으로 움직이는거
         Vector3 targetpositionZ = new Vector3(CraneHoist.transform.position.x, CraneHoist.transform.position.y, PointA.position.z);
         CraneHoist.transform.position = Vector3.Lerp(CraneHoist.transform.position, targetpositionZ, moveSpeed * Time.deltaTime);
-        Debug.Log("Move2");
+        //Debug.Log("Move2");
         yield return new WaitForSeconds(1f);
         // Body를 x축으로 움직이기
         Vector3 targetpositionX = new Vector3(PointA.position.x, CraneBody.transform.position.y, CraneBody.transform.position.z);
         CraneBody.transform.position = Vector3.Lerp(CraneBody.transform.position, targetpositionX, moveSpeed * Time.deltaTime);
-        Debug.Log("Move3");
+        //Debug.Log("Move3");
         yield return new WaitForSeconds(1f);
         LiftStatus = true;
         cranstatus = CraneStatus.Detected;
@@ -122,7 +121,7 @@ public class CraneMove : MonoBehaviour
     public void CraneDetectedCoil()
     {
         StopCoroutine(MovementRoutine());
-        Debug.Log("두번쨰 case 함수로 잘넘어왔다.");
+       // Debug.Log("두번쨰 case 함수로 잘넘어왔다.");
         StartCoroutine(DetectCoil());
         //리프트의 특정 지점과 코일이 충돌시 코일의 위치를 리프트의 특정위치로 업데이트하는 함수만들기.
     }
@@ -130,7 +129,7 @@ public class CraneMove : MonoBehaviour
 
     IEnumerator DetectCoil()
     {
-        Debug.Log("리프트 내려가는중");
+       // Debug.Log("리프트 내려가는중");
         Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, PointA.position.y, CraneLift.transform.position.z);
         float distance = Vector3.Distance(CraneLift.transform.position, targetPositionY);
         if (distance > 0.01f && LiftStatus == true)
@@ -149,7 +148,7 @@ public class CraneMove : MonoBehaviour
             Vector3 targetPositionYT = new Vector3(CraneLift.transform.position.x, LiftRollBack.position.y, CraneLift.transform.position.z);
             CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionYT, moveSpeed * Time.deltaTime);
             // Once the lift has reached the target position, change crane status
-            Debug.Log("코일상탭전환체크");
+           // Debug.Log("코일상탭전환체크");
             yield return new WaitForSeconds(3f);
             cranstatus = CraneStatus.CoilMove;
         }
@@ -166,7 +165,7 @@ public class CraneMove : MonoBehaviour
     }
     public void StopMovePoint()
     {
-        Debug.Log("스키드 충돌후 idle 상태로 가는 코드");
+        //Debug.Log("스키드 충돌후 idle 상태로 가는 코드");
         StopCoroutine(MovePoint());
         cranstatus = CraneStatus.Idle;
     }
@@ -176,9 +175,9 @@ public class CraneMove : MonoBehaviour
     {
         InitializePointB();
         downSpeed = 4f;
-        Debug.Log("MovePoint로 넘어왔다.");
+       // Debug.Log("MovePoint로 넘어왔다.");
         yield return new WaitForSeconds(1f);
-        Debug.Log("포인트지점으로 옮기는 함수가 시작되는 부분이다.");
+       // Debug.Log("포인트지점으로 옮기는 함수가 시작되는 부분이다.");
         Vector3 targetpositionX = new Vector3(PointB.position.x, CraneBody.transform.position.y, CraneBody.transform.position.z);
         CraneBody.transform.position = Vector3.Lerp(CraneBody.transform.position, targetpositionX, downSpeed * Time.deltaTime);
         yield return new WaitForSeconds(1f);
@@ -282,7 +281,7 @@ public class CraneMove : MonoBehaviour
         }
         else
         {
-            Debug.Log("등록되어있지않은 코일입니다");
+            //Debug.Log("등록되어있지않은 코일입니다");
         }
     }
 }

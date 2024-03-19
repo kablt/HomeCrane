@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Coil
   - Skid
+  - Truck
+  - Exit
+  - PointA
   layers:
   - Default
   - TransparentFX
