@@ -10,7 +10,7 @@ public class CoilCollision : MonoBehaviour
     CraneMove cranemove;
     private GameObject coil;
     public GameObject SkidGB;
-    CoilData coildata;
+    CoilDatas coildata;
     public float CoilNumber;
     SkidBool skidbool;
 
@@ -25,7 +25,7 @@ public class CoilCollision : MonoBehaviour
         if (collision.gameObject.tag == "Coil")
         {
             coil = collision.gameObject;
-            coildata = coil.GetComponent<CoilData>();
+            coildata = coil.GetComponent<CoilDatas>();
             CoilNumber = coildata.Number;
             cranemove.LiftStatus = false;
             cranemove.moveStatus = true;
