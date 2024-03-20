@@ -10,13 +10,14 @@ public class LayShoot : MonoBehaviour
     {
         cranemove = CraneManager.GetComponent<CraneMove>();
     }
-    public float rayDis = 20f;
+    public float rayDis = 10f;
     public void ShootAndCheckForCoil()
     {
         // Shoot a ray from the current GameObject in the forward direction
         RaycastHit hit;
         if (Physics.Raycast(transform.position, -transform.right, out hit, rayDis))
         {
+            Debug.DrawRay(transform.position, -transform.right * rayDis, Color.red, 0.5f);
             // Check if the hit object has the specified tag "coil"
             if (hit.collider.CompareTag("Coil"))
             {

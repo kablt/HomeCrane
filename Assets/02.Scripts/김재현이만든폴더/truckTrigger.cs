@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.iOS;
+using UnityEngine.Rendering;
 
 public class truckTrigger : MonoBehaviour
 {
@@ -21,7 +23,7 @@ public class truckTrigger : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         // 트리거 영역을 빠져나간 오브젝트가 Coil 태그를 가진 자식 오브젝트인지 확인합니다.
-        if (other.CompareTag("Coil"))
+        if (other.CompareTag("ExitCoil"))
         {
             // 트리거 영역을 빠져나간 자식 오브젝트에 대한 처리를 수행합니다.
             Debug.Log("Coil 태그를 가진 오브젝트가 트리거 영역을 빠져나갔습니다.");
@@ -40,48 +42,39 @@ public class truckTrigger : MonoBehaviour
         }
         if(other.CompareTag("PointA"))
         {
+            Debug.Log("트럭멈추기");
             StopTruck();
         }
     }
 
     public void GohomeNow()
     {
+        StopAllCoroutines();
+        Debug.Log("gohomecheck");
         StartCoroutine(GoHome());
     }
 
     IEnumerator GoHome()
     {
-        Debug.Log("고홈코루틴확인용");
-        // Move the object towards the ExitPoint direction.
-        if (ExitPoint != null)
-        {
-            // Define the speed at which the object will move.
-            float speed = 3f; // Adjust as needed
+        Debug.Log("GoHome coroutine started");
 
-            // Loop until the distance between the current position and ExitPoint is 2 or less.
+            float speed = 9f;
             while (Vector3.Distance(transform.position, ExitPoint.transform.position) >= 0f)
             {
-                // Calculate the direction towards the ExitPoint.
+                Debug.Log("Distance to ExitPoint: " + Vector3.Distance(transform.position, ExitPoint.transform.position));
+
                 Vector3 direction = ExitPoint.transform.position - transform.position;
-
-                // Normalize the direction vector to maintain constant speed.
                 direction.Normalize();
-
-                // Move the object towards the ExitPoint with constant speed.
                 transform.position += direction * speed * Time.deltaTime;
-
-                yield return null; // Wait for the next frame.
+                yield return null;
             }
-        }
-        else
-        {
-            Debug.LogWarning("ExitPoint is not assigned. Please assign the ExitPoint transform in the Inspector.");
-        }
+        yield return null;
+
     }
 
-   IEnumerator GoPointA()
+    IEnumerator GoPointA()
     {
-        float truckspeed = 3f;
+        float truckspeed = 9f;
 
         while (Vector3.Distance(transform.position, TruckPointA.transform.position) >= 0f)
         {
@@ -100,6 +93,7 @@ public class truckTrigger : MonoBehaviour
     }
     public void StopTruck()
     {
+        Debug.Log("트럭멈추는코루틴확인");
         StopCoroutine(GoPointA());
     }
 }

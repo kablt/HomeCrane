@@ -16,6 +16,7 @@ public class CraneMove : MonoBehaviour
     public GameObject LayShooter; // ray를 쏘는 객체
     public CoilCollision coilcollision;
     public LayerMask CoilLayer; // 충돌할 레이어 변수;
+    private float time = 3f;
     public bool LiftStatus = true;
     public bool moveStatus = true;
     public Transform PointB;
@@ -83,9 +84,18 @@ public class CraneMove : MonoBehaviour
         Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, LiftRollBack.position.y, CraneLift.transform.position.z);
         CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionY, moveSpeed * Time.deltaTime);
         yield return new WaitForSeconds(1f);
+        float timer = 3;
         LayShoot objectBShooter = LayShooter.GetComponent<LayShoot>();
+        if(time == timer)
+        {
+            objectBShooter.ShootAndCheckForCoil();
+            time = 0;
+        }
+        else
+        {
+            time++;
+        }
         //해당 객체가 null이 아니라면.(해당 객제가 있다면)
-        objectBShooter.ShootAndCheckForCoil();
     }
     //--------------------------------------------MovePointA----------------------------------------------------------------
 

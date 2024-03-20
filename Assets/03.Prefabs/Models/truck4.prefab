@@ -93,9 +93,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2226827684878161623}
-  m_Layer: 0
+  - component: {fileID: 1499058444572110724}
+  m_Layer: 6
   m_Name: PickUpcoilPoint
-  m_TagString: Untagged
+  m_TagString: ExitCoil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,6 +116,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2839326269141302308}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1499058444572110724
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755539337176452598}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1342171560071497482
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,7 +537,7 @@ GameObject:
   - component: {fileID: 1406102843993084339}
   - component: {fileID: 1108883018155548512}
   - component: {fileID: 5930208193099941213}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: coil
   m_TagString: Coil
   m_Icon: {fileID: 0}
@@ -634,8 +656,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.004, y: 0.007, z: 0.017}
-  m_Center: {x: -5.058782e-11, y: -5.058782e-11, z: -0.001}
+  m_Size: {x: 0.0064160083, y: 0.013743913, z: 0.023650356}
+  m_Center: {x: -0.0012080052, y: -0.00069836975, z: -0.00432518}
 --- !u!114 &5930208193099941213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,7 +670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e3ea644ec4e62249a3a449ef603f7d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  csvmanager: {fileID: 0}
+  csv: {fileID: 0}
   truck: {fileID: 3270966320234376103}
   InCoilID: 0
   InCoilWeight: 0
@@ -786,8 +808,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.9956726, y: 3.5588157, z: 7.5239277}
-  m_Center: {x: 0.49783617, y: 0.08491397, z: 2.63304}
+  m_Size: {x: 1.4368659, y: 3.5588157, z: 7.5239277}
+  m_Center: {x: 0.21843284, y: 0.08491397, z: 2.63304}
 --- !u!1 &4429241843602078343
 GameObject:
   m_ObjectHideFlags: 0

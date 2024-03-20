@@ -20,7 +20,8 @@ public class CarController : MonoBehaviour
             if (component != null)
             {
                 // Initialize your variable with the value of the variable held by the object
-                component.truckNum = i; // Replace variableToAccess with the actual variable name
+                component.truckNum = i;
+                newObject.transform.parent = null;// Replace variableToAccess with the actual variable name
                 // Now you can use variableValue3 as needed
                 i++;
             }
