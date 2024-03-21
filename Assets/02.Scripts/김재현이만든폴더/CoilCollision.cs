@@ -12,7 +12,7 @@ public class CoilCollision : MonoBehaviour
     public GameObject SkidGB;
     CoilDatas coildata;
     public float CoilNumber;
-    SkidBool skidbool;
+    SkidLeft skidLeft;
 
     void Awake()
     {
@@ -40,8 +40,8 @@ public class CoilCollision : MonoBehaviour
         {
             Debug.Log("Crash with Skid");
             SkidGB = collision.gameObject;
-            skidbool = SkidGB.GetComponent<SkidBool>();
-            skidbool.SkidUse = false;
+            skidLeft = SkidGB.GetComponent<SkidLeft>();
+            skidLeft.SkidUse = false;
             cranemove.moveStatus = false;
             cranemove.StopMovePoint();
             coil.transform.SetParent(collision.transform);

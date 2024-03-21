@@ -221,7 +221,7 @@ public class CraneMove : MonoBehaviour
             for (int i = startIndex; i <= endIndex && i < SkidPositions.Length; i++)
             {
                 Transform skidPosition = SkidPositions[i];
-                SkidBool skidBoolScript = skidPosition.GetComponent<SkidBool>();
+                SkidLeft skidBoolScript = skidPosition.GetComponent<SkidLeft>();
 
                 // Check if the SkidBool script is attached and SkidUse is true
                 if (skidBoolScript != null && skidBoolScript.SkidUse)
@@ -240,7 +240,7 @@ public class CraneMove : MonoBehaviour
             for (int i = startIndex; i <= endIndex && i < SkidPositions.Length; i++)
             {
                 Transform skidPosition = SkidPositions[i];
-                SkidBool skidBoolScript = skidPosition.GetComponent<SkidBool>();
+                SkidLeft skidBoolScript = skidPosition.GetComponent<SkidLeft>();
 
                 // Check if the SkidBool script is attached and SkidUse is true
                 if (skidBoolScript != null && skidBoolScript.SkidUse)
@@ -259,7 +259,7 @@ public class CraneMove : MonoBehaviour
             for (int i = startIndex; i <= endIndex && i < SkidPositions.Length; i++)
             {
                 Transform skidPosition = SkidPositions[i];
-                SkidBool skidBoolScript = skidPosition.GetComponent<SkidBool>();
+                SkidLeft skidBoolScript = skidPosition.GetComponent<SkidLeft>();
 
                 // Check if the SkidBool script is attached and SkidUse is true
                 if (skidBoolScript != null && skidBoolScript.SkidUse)
@@ -278,7 +278,7 @@ public class CraneMove : MonoBehaviour
             for (int i = startIndex; i <= endIndex && i < SkidPositions.Length; i++)
             {
                 Transform skidPosition = SkidPositions[i];
-                SkidBool skidBoolScript = skidPosition.GetComponent<SkidBool>();
+                SkidLeft skidBoolScript = skidPosition.GetComponent<SkidLeft>();
 
                 // Check if the SkidBool script is attached and SkidUse is true
                 if (skidBoolScript != null && skidBoolScript.SkidUse)

@@ -17,18 +17,13 @@ public class CarController : MonoBehaviour
             return; // Exit the function if all values are used
         }
 
-        // Find an unused value for i
         int i = FindUnusedValue();
-
         GameObject newObject = Instantiate(truck, StartPoint);
-        // Access the variable from the instantiated object
-        truckTrigger component = newObject.GetComponent<truckTrigger>(); // Replace YourComponent with the actual component type
+        truckTrigger component = newObject.GetComponent<truckTrigger>(); 
         if (component != null)
         {
-            // Initialize your variable with the value of the variable held by the object
             component.truckNum = i;
-            newObject.transform.parent = null;// Replace variableToAccess with the actual variable name
-                                              // Now you can use variableValue3 as needed
+            newObject.transform.parent = null;
         }
         else
         {
@@ -42,12 +37,12 @@ public class CarController : MonoBehaviour
         int randomIndex;
         do
         {
-            randomIndex = Random.Range(0, 20); // Generate a random index within the range of 0 to 19
-        } while (usedValues[randomIndex] != 0); // Keep generating until an unused value is found
-
-        usedValues[randomIndex] = 1; // Mark the value as used
-        currentIndex++; // Increment the current index
-        return randomIndex; // Return the unused value
+            randomIndex = Random.Range(0, 20); 
+        } 
+        while (usedValues[randomIndex] != 0); 
+        usedValues[randomIndex] = 1; 
+        currentIndex++; 
+        return randomIndex; 
     }
     private void OnTriggerEnter(Collider other)
     {
