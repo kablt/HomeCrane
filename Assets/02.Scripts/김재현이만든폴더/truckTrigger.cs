@@ -43,6 +43,7 @@ public class truckTrigger : MonoBehaviour
         if(other.CompareTag("PointA"))
         {
             Debug.Log("∆Æ∑∞∏ÿ√ﬂ±‚");
+            StopAllCoroutines();
             StopTruck();
         }
     }
