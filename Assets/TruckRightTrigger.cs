@@ -4,32 +4,21 @@ using UnityEngine;
 using UnityEngine.iOS;
 using UnityEngine.Rendering;
 
-public class truckTrigger : MonoBehaviour
+public class TruckRightTrigger : MonoBehaviour
 {
     private GameObject ExitPoint;
     private GameObject TruckPointA;
-    public int truckNum;
 
     // OnTriggerExit 함수는 트리거 영역을 빠져나갈 때 호출됩니다.
     void Start()
     {
         // Scene에서 ExitPoint GameObject를 찾아서 할당합니다.
-        ExitPoint = GameObject.Find("CarExit");
-        TruckPointA = GameObject.Find("CarPoint");
+        ExitPoint = GameObject.Find("TruckRightExit");
+        TruckPointA = GameObject.Find("TruckRightPosition");
 
         StartCoroutine(GoPointA());
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        // 트리거 영역을 빠져나간 오브젝트가 Coil 태그를 가진 자식 오브젝트인지 확인합니다.
-        if (other.CompareTag("Coil"))
-        {
-            // 트리거 영역을 빠져나간 자식 오브젝트에 대한 처리를 수행합니다.
-            Debug.Log("Coil 태그를 가진 오브젝트가 트리거 영역을 빠져나갔습니다.");
-            GohomeNow();
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -40,9 +29,9 @@ public class truckTrigger : MonoBehaviour
             Debug.Log("사라지는거 확인용");
             Destroy(gameObject);
         }
-        if(other.CompareTag("PointA"))
+        if (other.CompareTag("RightPoint"))
         {
-            Debug.Log("트럭멈추기");
+            Debug.Log("Right 컴페얼태그  확인");
             StopAllCoroutines();
             StopTruck();
         }
@@ -59,14 +48,16 @@ public class truckTrigger : MonoBehaviour
     {
         Debug.Log("GoHome coroutine started");
 
-            float speed = 9f;
-            while (Vector3.Distance(transform.position, ExitPoint.transform.position) >= 0f)
-            {
-                Vector3 direction = ExitPoint.transform.position - transform.position;
-                direction.Normalize();
-                transform.position += direction * speed * Time.deltaTime;
-                yield return null;
-            }
+        float speed = 9f;
+        while (Vector3.Distance(transform.position, ExitPoint.transform.position) >= 0f)
+        {
+            Debug.Log("Distance to ExitPoint: " + Vector3.Distance(transform.position, ExitPoint.transform.position));
+
+            Vector3 direction = ExitPoint.transform.position - transform.position;
+            direction.Normalize();
+            transform.position += direction * speed * Time.deltaTime;
+            yield return null;
+        }
         yield return null;
 
     }

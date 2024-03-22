@@ -62,6 +62,7 @@ public class CraneRightMove : MonoBehaviour
         if (distanceY > 0.1f && moveStatus)
         {
             Debug.Log("아이들위쪽");
+            Debug.Log(moveStatus);
             Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, LiftRollBack.position.y, CraneLift.transform.position.z);
             CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionY, moveSpeed * Time.deltaTime);
             yield return new WaitForSeconds(1f);
@@ -103,6 +104,13 @@ public class CraneRightMove : MonoBehaviour
         yield return new WaitForSeconds(2f);
     }
     //======================================우선순위가 제일 높은 코일이 있는 스키드로 움직이는 동작 코루틴======================================================
+
+    public void PointToTruck()
+    {
+        Debug.Log("포인트투트럭으로넘어왔는지확인");
+        StopAllCoroutines();
+        cranstatus = CraneStatus.MoveTruck;
+    }
     IEnumerator MoveTruckSkid()
     {
         downSpeed = 4f;

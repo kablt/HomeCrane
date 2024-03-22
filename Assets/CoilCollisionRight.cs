@@ -26,6 +26,8 @@ public class CoilCollisionRight : MonoBehaviour
             coil = collision.gameObject;
             coilrighrdata = coil.GetComponent<CoilrightData>();  
             collision.transform.SetParent(transform);
+            cranerightmove.StopAllCoroutines();
+            cranerightmove.PointToTruck();
             Debug.Log("부모바꾸는 디버그");
 
         }

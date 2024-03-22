@@ -9,6 +9,8 @@ TagManager:
   - Truck
   - Exit
   - PointA
+  - ExitCoil
+  - RightPoint
   layers:
   - Default
   - TransparentFX
