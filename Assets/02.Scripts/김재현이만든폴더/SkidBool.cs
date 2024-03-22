@@ -26,7 +26,6 @@ public class SkidBool : MonoBehaviour
     {
         if (other.CompareTag("Coil"))
         {
-            Debug.Log("코일상태체크");
             coil = other.gameObject;
             coildata = coil.GetComponent<CoilrightData>();
             coildata.coilrightcode = PirorNum;

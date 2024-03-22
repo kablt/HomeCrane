@@ -19,7 +19,6 @@ public class CSVDataLoader : MonoBehaviour
     void Awake()
     {
         ReadCSV();
-        DebugLogFourthLine();
     }
 
     void ReadCSV()
@@ -43,16 +42,4 @@ public class CSVDataLoader : MonoBehaviour
         }
     }
 
-    void DebugLogFourthLine()
-    {
-        if (coilDatas.Count >= 4)
-        {
-            CoilList fourthLineData = coilDatas[3]; // 데이터는 인덱스 3에 있습니다, 타입 변경
-            Debug.Log($"4번째 줄 데이터: CoilID: {fourthLineData.CoilID}, CoilWeight: {fourthLineData.CoilWeight}, CoilWidth: {fourthLineData.CoilWidth}, CoilOD: {fourthLineData.CoilOD}, CoilReceiveOrder: {fourthLineData.CoilReceiveOrder}, CoilSendOrder: {fourthLineData.CoilSendOrder}");
-        }
-        else
-        {
-            Debug.LogError("CSV 파일에 충분한 데이터가 없습니다.");
-        }
-    }
 }
