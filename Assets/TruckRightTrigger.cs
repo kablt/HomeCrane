@@ -32,8 +32,8 @@ public class TruckRightTrigger : MonoBehaviour
         if (other.CompareTag("RightPoint"))
         {
             Debug.Log("Right 컴페얼태그  확인");
-            StopAllCoroutines();
-            StopTruck();
+            //StopAllCoroutines();
+           // StopTruck();
         }
     }
 

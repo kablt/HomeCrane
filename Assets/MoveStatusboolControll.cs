@@ -12,10 +12,11 @@ public class MoveStatusboolControll : MonoBehaviour
         Debug.Log("트럭감지시 아이들 함수에서 코일스키드로 이동하는조거 달성을 위한 함수 확인 디버그");
         if(other.CompareTag("Truck"))
         {
-            crm.boolchangeA();
+            crm.moveStatus = false;
+            crm.downStatus = false;
         }
     }
-
+    /*
     private void OnTriggerExit(Collider other)
     {
         if(other.CompareTag("Truck"))
@@ -23,6 +24,8 @@ public class MoveStatusboolControll : MonoBehaviour
             crm.moveStatus = true;
         }
     }
+    */
+
     // Start is called before the first frame update
     void Start()
     {
