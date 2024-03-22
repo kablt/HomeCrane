@@ -26,6 +26,7 @@ public class CoilCollisionRight : MonoBehaviour
             coil = collision.gameObject;
             coilrighrdata = coil.GetComponent<CoilrightData>();  
             collision.transform.SetParent(transform);
+            cranerightmove.downStatus = true;
             cranerightmove.StopAllCoroutines();
             cranerightmove.PointToTruck();
             Debug.Log("부모바꾸는 디버그");
@@ -37,7 +38,10 @@ public class CoilCollisionRight : MonoBehaviour
             Debug.Log("Crash with Skid");
             SkidGB = collision.gameObject;
             coil.transform.SetParent(collision.transform);
-            coil.transform.position = collision.transform.position;
+            cranerightmove.StopAllCoroutines();
+            cranerightmove.moveStatus = true;
+            cranerightmove.skidarraryindex++;
+            cranerightmove.ChangeIdle();
             coil.GetComponent<Rigidbody>().velocity = Vector3.zero;
             // Function called when a collision with an object with the Skid tag has ended
         }

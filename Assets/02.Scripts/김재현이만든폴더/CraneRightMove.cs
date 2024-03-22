@@ -14,9 +14,10 @@ public class CraneRightMove : MonoBehaviour
     public Transform PointCoil;// 코일의 위치
     public float moveSpeed = 3f;
     public float downSpeed = 3f;
-    public bool moveStatus = true;// 위로 올리기위한 조건
-    public bool downStatus = true;// 무브포인트에서 리프트 내리는 조건
-    public bool movetruckstatus = true; // 트럭으로 옮기는걸 관리하기위한 조건
+    public int skidarraryindex = 0;
+    public bool moveStatus = true;// 위로 올리기위한 조건  A
+    public bool downStatus = true;// 무브포인트에서 리프트 내리는 조건 B
+
     enum CraneStatus
     {
         Idle,//리프트 올라가있는상태
@@ -25,21 +26,26 @@ public class CraneRightMove : MonoBehaviour
         LiftDown// 트럭의 스키드위치에 도달했을떄 리프트를 내리는 함수. 트럭의 스키드와 충돌시 대기 상태로 전환.
     }
     // 대기 ----- 트럭이 들어온다. 조건이 달성하여 대기상태에서 상태변환중 코일 가지러가는걸로 변경 ----------- 코일을 집고 트럭의 스키드 위치로 이동 ---- 트럭의스키드 위치에서 리프트 내리는 함수 작동 ------ 대기 상태로 전환
-    public void boolchange()
+    public void boolchangeA()
     {
         moveStatus = false;
     }
-    CraneStatus cranstatus;
+    public void boolchangeB()
+    {
+        downStatus = false;
+    }
+    CraneStatus cranestatus;
     // Start is called before the first frame update
     void Start()
     {
         craneskidnummanager = gameObject.GetComponent<CraneSkidNumManager>();
-        cranstatus = CraneStatus.Idle;
-        PointCoil = craneskidnummanager.skid[0];
+        cranestatus = CraneStatus.Idle;
+        
     }
     void Update()
     {
-        switch (cranstatus)
+        PointCoil = craneskidnummanager.skid[skidarraryindex];
+        switch (cranestatus)
         {
             case CraneStatus.Idle:
                 StartCoroutine(IdleStatusLift());
@@ -50,10 +56,18 @@ public class CraneRightMove : MonoBehaviour
             case CraneStatus.MoveTruck:
                 StartCoroutine(MoveTruckSkid());
                 break;
+            case CraneStatus.LiftDown:
+                StartCoroutine(DownLift());
+                break;
             default:
                 Debug.Log("오류가 발생했습니다");
                 break;
         }
+    }
+
+    public void ChangeIdle()
+    {
+        cranestatus = CraneStatus.Idle;
     }
     IEnumerator IdleStatusLift()
     {
@@ -67,19 +81,17 @@ public class CraneRightMove : MonoBehaviour
             CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionY, moveSpeed * Time.deltaTime);
             yield return new WaitForSeconds(1f);
         }
-        else
+        if (!moveStatus && !downStatus)
         {
             Debug.Log("아래쪽");
-            moveStatus = false;
-            downStatus = false;
             StopAllCoroutines();
-            cranstatus = CraneStatus.MoveCoil;
-
-        }              
+            cranestatus = CraneStatus.MoveCoil;
+        }
     }
     //------------------------------------------------------리프트 위로 올려서 대기하는 상태. (조건에 따라 대기,코일이있는스키드이동,트럭의스키드이동으로 상태전환)------------------------------------
     IEnumerator MovePoint()
     {
+        
         Debug.Log("무브포인트 코루틴 확인");
         downSpeed = 4f;
         // Debug.Log("MovePoint로 넘어왔다.");
@@ -102,6 +114,7 @@ public class CraneRightMove : MonoBehaviour
             distance = Vector3.Distance(CraneLift.transform.position, targetPositionY);
         }
         yield return new WaitForSeconds(2f);
+
     }
     //======================================우선순위가 제일 높은 코일이 있는 스키드로 움직이는 동작 코루틴======================================================
 
@@ -109,7 +122,7 @@ public class CraneRightMove : MonoBehaviour
     {
         Debug.Log("포인트투트럭으로넘어왔는지확인");
         StopAllCoroutines();
-        cranstatus = CraneStatus.MoveTruck;
+        cranestatus = CraneStatus.MoveTruck;
     }
     IEnumerator MoveTruckSkid()
     {
@@ -129,7 +142,28 @@ public class CraneRightMove : MonoBehaviour
         CraneBody.transform.position = Vector3.Lerp(CraneBody.transform.position, targetpositionX, moveSpeed * Time.deltaTime);
         //Debug.Log("Move3");
         yield return new WaitForSeconds(1f);
-  
-    }
+        float distanceX = Mathf.Abs(CraneBody.transform.position.x - TruckSkid.position.x);
+        if (distanceX < 1)
+        {
+            cranestatus = CraneStatus.LiftDown;
+            StopCoroutine(MoveTruckSkid());
+        }
 
+    }
+    //------------------------------------------리프트다운-------------------------------------------------
+
+    IEnumerator DownLift()
+    {
+        // Debug.Log("리프트 내려가는중");
+        Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, TruckSkid.position.y, CraneLift.transform.position.z);
+        float distance = Vector3.Distance(CraneLift.transform.position, targetPositionY);
+        if (distance > 0.01f)
+        {
+            Debug.Log("여기도 반복되고있는가");
+            CraneLift.transform.position = Vector3.MoveTowards(CraneLift.transform.position, targetPositionY, downSpeed * Time.deltaTime);
+            yield return null;
+            distance = Vector3.Distance(CraneLift.transform.position, targetPositionY);
+        }
+        yield return new WaitForSeconds(1f);
+    }
 }
