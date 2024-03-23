@@ -3466,6 +3466,7 @@ MonoBehaviour:
   skidarraryindex: 0
   moveStatus: 1
   downStatus: 1
+  arrayindex: 1
 --- !u!1001 &225566603
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17713,8 +17714,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8fa387aa182e349a0193e042ae5170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cranerightmove: {fileID: 214205545}
   StartPoint: {fileID: 1366716424}
   truck: {fileID: 507460881208995399, guid: cf4cf96956933d04c9a9b2424927e588, type: 3}
+  carhow: 0
 --- !u!1001 &1212463474
 PrefabInstance:
   m_ObjectHideFlags: 0
