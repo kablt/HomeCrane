@@ -7,6 +7,7 @@ public class CraneLineRender : MonoBehaviour
     public LineRenderer line;
     public Transform pos1; // 위
     public Transform pos2;  // 집게 위치
+
     void Start()
     {
         line.positionCount = 2;   
