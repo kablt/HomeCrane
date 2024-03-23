@@ -11,6 +11,8 @@ TagManager:
   - PointA
   - ExitCoil
   - RightPoint
+  - RightSK
+  - RightLift
   layers:
   - Default
   - TransparentFX

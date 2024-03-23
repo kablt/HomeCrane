@@ -44,6 +44,10 @@ public class CraneRightMove : MonoBehaviour
     }
     void Update()
     {
+        if (skidarraryindex == 20) // skid 배열의 길이가 20이라고 가정합니다.
+        {
+            Debug.Log("안의코일을 다 비웠습니다.");
+        }
         PointCoil = craneskidnummanager.skid[skidarraryindex];
         switch (cranestatus)
         {

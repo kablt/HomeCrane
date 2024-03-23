@@ -16,15 +16,7 @@ public class MoveStatusboolControll : MonoBehaviour
             crm.downStatus = false;
         }
     }
-    /*
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.CompareTag("Truck"))
-        {
-            crm.moveStatus = true;
-        }
-    }
-    */
+
 
     // Start is called before the first frame update
     void Start()

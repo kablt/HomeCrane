@@ -8,6 +8,7 @@ public class TruckRightTrigger : MonoBehaviour
 {
     private GameObject ExitPoint;
     private GameObject TruckPointA;
+    public bool changetrigger = true;
 
     // OnTriggerExit 함수는 트리거 영역을 빠져나갈 때 호출됩니다.
     void Start()
@@ -29,29 +30,31 @@ public class TruckRightTrigger : MonoBehaviour
             Debug.Log("사라지는거 확인용");
             Destroy(gameObject);
         }
-        if (other.CompareTag("RightPoint"))
+        if (other.CompareTag("RightPoint") && changetrigger ==true)
         {
             Debug.Log("Right 컴페얼태그  확인");
-            //StopAllCoroutines();
-           // StopTruck();
+            StopAllCoroutines();
         }
     }
 
-    public void GohomeNow()
+    private void OnTriggerExit(Collider other)
     {
-        StopAllCoroutines();
-        Debug.Log("gohomecheck");
-        StartCoroutine(GoHome());
+        if(other.CompareTag("RightLift"))
+        {
+            Debug.Log("트럭트리거불린 폴스 교체");
+            changetrigger = false;
+            StartCoroutine(GoHome());
+        }
     }
+
 
     IEnumerator GoHome()
     {
-        Debug.Log("GoHome coroutine started");
-
+        Debug.Log("집가는 코루틴");    
         float speed = 9f;
         while (Vector3.Distance(transform.position, ExitPoint.transform.position) >= 0f)
         {
-            Debug.Log("Distance to ExitPoint: " + Vector3.Distance(transform.position, ExitPoint.transform.position));
+            Debug.Log("오른쪽차 거리: " + Vector3.Distance(transform.position, ExitPoint.transform.position));
 
             Vector3 direction = ExitPoint.transform.position - transform.position;
             direction.Normalize();
@@ -81,9 +84,5 @@ public class TruckRightTrigger : MonoBehaviour
         }
         yield return null;
     }
-    public void StopTruck()
-    {
-        Debug.Log("트럭멈추는코루틴확인");
-        StopCoroutine(GoPointA());
-    }
+   
 }
