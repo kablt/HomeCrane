@@ -54,8 +54,6 @@ public class TruckRightTrigger : MonoBehaviour
         float speed = 9f;
         while (Vector3.Distance(transform.position, ExitPoint.transform.position) >= 0f)
         {
-            Debug.Log("오른쪽차 거리: " + Vector3.Distance(transform.position, ExitPoint.transform.position));
-
             Vector3 direction = ExitPoint.transform.position - transform.position;
             direction.Normalize();
             transform.position += direction * speed * Time.deltaTime;

@@ -17,6 +17,7 @@ public class CraneRightMove : MonoBehaviour
     public int skidarraryindex = 0;
     public bool moveStatus = true;// 위로 올리기위한 조건  A
     public bool downStatus = true;// 무브포인트에서 리프트 내리는 조건 B
+    public bool arrayindex = true;
 
     enum CraneStatus
     {
@@ -44,10 +45,6 @@ public class CraneRightMove : MonoBehaviour
     }
     void Update()
     {
-        if (skidarraryindex == 20) // skid 배열의 길이가 20이라고 가정합니다.
-        {
-            Debug.Log("안의코일을 다 비웠습니다.");
-        }
         PointCoil = craneskidnummanager.skid[skidarraryindex];
         switch (cranestatus)
         {
@@ -85,7 +82,12 @@ public class CraneRightMove : MonoBehaviour
             CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionY, moveSpeed * Time.deltaTime);
             yield return new WaitForSeconds(1f);
         }
-        if (!moveStatus && !downStatus)
+        if(distanceY < 0.1f && !arrayindex)
+        {
+            Debug.Log("오른쪽크레인끝");
+            StopAllCoroutines();
+        }
+        if (!moveStatus && !downStatus && arrayindex)
         {
             Debug.Log("아래쪽");
             StopAllCoroutines();

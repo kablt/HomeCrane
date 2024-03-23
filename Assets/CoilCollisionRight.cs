@@ -41,6 +41,11 @@ public class CoilCollisionRight : MonoBehaviour
             cranerightmove.StopAllCoroutines();
             cranerightmove.moveStatus = true;
             cranerightmove.skidarraryindex++;
+            if(cranerightmove.skidarraryindex ==20)
+            {
+                cranerightmove.arrayindex = false;
+                cranerightmove.skidarraryindex = 19;
+            }
             cranerightmove.ChangeIdle();
             coil.GetComponent<Rigidbody>().velocity = Vector3.zero;
             // Function called when a collision with an object with the Skid tag has ended
