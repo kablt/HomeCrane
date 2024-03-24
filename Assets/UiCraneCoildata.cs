@@ -32,7 +32,7 @@ public class UiCraneCoildata : MonoBehaviour
         textID.text = coilcollsion.coildata.InCoilID.ToString();
         textWeight.text = coilcollsion.coildata.InCoilWeight.ToString();
         textWidth.text = coilcollsion.coildata.InCoilWidth.ToString();
-        textIOD.text = coilcollsion.coildata.InCoilOD.ToString();
+        textIOD.text = coilcollsion.coildata.InCoilIOD.ToString();
         textReceiveOrder.text = coilcollsion.coildata.InCoilReceiveOrder.ToString();
         textSendOrder.text = coilcollsion.coildata.InCoilSendOrder.ToString();
 

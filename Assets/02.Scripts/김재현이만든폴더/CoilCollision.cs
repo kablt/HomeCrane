@@ -51,6 +51,12 @@ public class CoilCollision : MonoBehaviour
             SkidGB = collision.gameObject;
             skidLeft = SkidGB.GetComponent<SkidLeft>();
             skidLeft.SkidUse = false;
+            skidLeft.num = coildata.InCoilID;
+            skidLeft.weight = coildata.InCoilWeight;
+            skidLeft.width = coildata.InCoilWidth;
+            skidLeft.iod = coildata.InCoilIOD;
+            skidLeft.rece = coildata.InCoilReceiveOrder;
+            skidLeft.send = coildata.InCoilSendOrder;
             cranemove.moveStatus = false;
             cranemove.StopMovePoint();
             coil.transform.SetParent(collision.transform);
