@@ -3709,6 +3709,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1591113385865001244, guid: da64682ed1fcb93488c1b65a94b4e9bc,
+        type: 3}
+      propertyPath: LiftRoot
+      value: 
+      objectReference: {fileID: 713330235}
     - target: {fileID: 1992610161588393628, guid: da64682ed1fcb93488c1b65a94b4e9bc,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -11120,7 +11125,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CraneManager: {fileID: 1233803752}
+  coil: {fileID: 0}
   SkidGB: {fileID: 0}
+  coildata: {fileID: 0}
   CoilNumber: 0
 --- !u!65 &713330238
 BoxCollider:

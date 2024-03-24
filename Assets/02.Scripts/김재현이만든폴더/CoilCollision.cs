@@ -8,9 +8,9 @@ public class CoilCollision : MonoBehaviour
 {
     public GameObject CraneManager;
     CraneMove cranemove;
-    private GameObject coil;
+    public GameObject coil;
     public GameObject SkidGB;
-    CoilDatas coildata;
+    public CoilDatas coildata;
     public float CoilNumber;
     SkidLeft skidLeft;
 
@@ -38,6 +38,15 @@ public class CoilCollision : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Skid"))
         {
+            //코일을 스키드에 내려놓을때 값 0으로 초기화
+            /* 
+            coildata.InCoilID = 0;
+            coildata.InCoilWeight = 0;
+            coildata.InCoilWidth = 0;
+            coildata.InCoilOD = 0;
+            coildata.InCoilReceiveOrder = 0;
+            coildata.InCoilSendOrder = 0;
+            */
             Debug.Log("Crash with Skid");
             SkidGB = collision.gameObject;
             skidLeft = SkidGB.GetComponent<SkidLeft>();
