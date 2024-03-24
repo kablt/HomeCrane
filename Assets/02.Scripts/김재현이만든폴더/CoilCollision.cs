@@ -20,6 +20,7 @@ public class CoilCollision : MonoBehaviour
     {
         cranemove = CraneManager.GetComponent<CraneMove>();
         uiint = mainpanel.GetComponent<UiCraneCoildata>();
+        
     }
 
   

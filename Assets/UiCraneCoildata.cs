@@ -11,7 +11,6 @@ public class UiCraneCoildata : MonoBehaviour
     public TextMeshProUGUI textIOD;
     public TextMeshProUGUI textReceiveOrder;
     public TextMeshProUGUI textSendOrder;
-    public TextMeshProUGUI coilcount;
     public GameObject LiftRoot;
     public GameObject detailpanel; // ªÛ»≤∆«
     public int count = 0;
@@ -19,6 +18,7 @@ public class UiCraneCoildata : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+      
         coilcollsion = LiftRoot.GetComponent<CoilCollision>();
         textID.text = "";
         textWeight.text = "";
@@ -26,7 +26,6 @@ public class UiCraneCoildata : MonoBehaviour
         textIOD.text = "";
         textReceiveOrder.text = "";
         textSendOrder.text = "";
-        coilcount.text = $"Coil :  {count}/20";
 
     }
 
@@ -39,7 +38,6 @@ public class UiCraneCoildata : MonoBehaviour
         textIOD.text = coilcollsion.coildata.InCoilIOD.ToString();
         textReceiveOrder.text = coilcollsion.coildata.InCoilReceiveOrder.ToString();
         textSendOrder.text = coilcollsion.coildata.InCoilSendOrder.ToString();
-        coilcount.text = $"Coil :  {count}/20";
 
     }
 
