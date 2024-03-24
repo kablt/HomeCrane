@@ -16,6 +16,7 @@ public class CarController : MonoBehaviour
         if (currentIndex == 20)
         {
             Debug.Log("모든 값이 사용되었습니다.");
+            colorchange.stopcolor();
             return; // Exit the function if all values are used
         }
 
