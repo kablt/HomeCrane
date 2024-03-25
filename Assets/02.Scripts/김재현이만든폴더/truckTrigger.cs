@@ -18,7 +18,7 @@ public class truckTrigger : MonoBehaviour
         // Scene에서 ExitPoint GameObject를 찾아서 할당합니다.
         ExitPoint = GameObject.Find("CarExit");
         TruckPointA = GameObject.Find("CarPoint");
-        GameManager = GameObject.Find("GameManager");
+        GameManager = GameObject.Find("ColorChangeLeft");
         colorchange = GameManager.GetComponent<ColorChange>();
 
         StartCoroutine(GoPointA());
