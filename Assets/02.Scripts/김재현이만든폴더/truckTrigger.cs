@@ -8,6 +8,8 @@ public class truckTrigger : MonoBehaviour
 {
     private GameObject ExitPoint;
     private GameObject TruckPointA;
+    private GameObject GameManager;
+    ColorChange colorchange;
     public int truckNum;
 
     // OnTriggerExit 함수는 트리거 영역을 빠져나갈 때 호출됩니다.
@@ -16,6 +18,8 @@ public class truckTrigger : MonoBehaviour
         // Scene에서 ExitPoint GameObject를 찾아서 할당합니다.
         ExitPoint = GameObject.Find("CarExit");
         TruckPointA = GameObject.Find("CarPoint");
+        GameManager = GameObject.Find("GameManager");
+        colorchange = GameManager.GetComponent<ColorChange>();
 
         StartCoroutine(GoPointA());
     }
@@ -28,6 +32,7 @@ public class truckTrigger : MonoBehaviour
             // 트리거 영역을 빠져나간 자식 오브젝트에 대한 처리를 수행합니다.
             Debug.Log("Coil 태그를 가진 오브젝트가 트리거 영역을 빠져나갔습니다.");
             GohomeNow();
+            colorchange.exitcolor();
         }
     }
 
@@ -45,6 +50,7 @@ public class truckTrigger : MonoBehaviour
             Debug.Log("트럭멈추기");
             StopAllCoroutines();
             StopTruck();
+            colorchange.waitcolor();
         }
     }
 
