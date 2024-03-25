@@ -4,6 +4,8 @@ public class CarControllerRight : MonoBehaviour
 {
     public GameObject cranerightmove;
     CraneRightMove cranerightsc;
+    public GameObject Rightcolorchange;
+    ColorRightChange colorright;
     public Transform StartPoint;
     public GameObject truck;
     public int carhow = 0;
@@ -15,6 +17,7 @@ public class CarControllerRight : MonoBehaviour
         
         GameObject newObject = Instantiate(truck, StartPoint);
         newObject.transform.parent = null;
+        colorright.startcolor();
         carhow++;
     }
 
@@ -35,6 +38,8 @@ public class CarControllerRight : MonoBehaviour
 
     void Start()
     {
+        Rightcolorchange = GameObject.Find("ColorChangeRight");
+        colorright = Rightcolorchange.GetComponent<ColorRightChange>();
         cranerightsc = cranerightmove.GetComponent<CraneRightMove>();
         MakeCar();
     }

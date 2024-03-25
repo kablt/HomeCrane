@@ -9,7 +9,7 @@ public class CoilDatas : MonoBehaviour
     public GameObject truck;
     truckTrigger trucktrigger;
     public float InCoilID, InCoilWeight, InCoilWidth, InCoilIOD, InCoilReceiveOrder, InCoilSendOrder;   
-    public int Number;
+    public int Number = 0;
     // Start is called before the first frame update
     void Start()
     {

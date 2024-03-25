@@ -7,21 +7,17 @@ public class CoilCount : MonoBehaviour
 {
     public GameObject mainpaenl;
     public TextMeshProUGUI mine;
-    UiCraneCoildata uicr;
+    public int coilcount;
     // Start is called before the first frame update
     void Start()
     {
-        uicr = mainpaenl.GetComponent<UiCraneCoildata>();
+     
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        mine.text = $"Coil : {coilcount}/20";
     }
 
-    public void setdata()
-    {
-        mine.text = $"Coil : {uicr.count}/20";
-    }
 }
