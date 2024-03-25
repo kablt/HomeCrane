@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UiCraneCoildata : MonoBehaviour
+public class UiRightCraneCoildata : MonoBehaviour
 {
     public GameObject craneleftpanel;
     public GameObject cranerightpanel;
@@ -15,12 +15,12 @@ public class UiCraneCoildata : MonoBehaviour
     public TextMeshProUGUI textSendOrder;
     public GameObject LiftRoot;
     public GameObject detailpanel; // ªÛ»≤∆«
-    public int count = 0;
+    public int count = 20;
     CoilCollision coilcollsion;
     // Start is called before the first frame update
     void Start()
     {
-      
+
         coilcollsion = LiftRoot.GetComponent<CoilCollision>();
         textID.text = "";
         textWeight.text = "";
@@ -34,14 +34,7 @@ public class UiCraneCoildata : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        textID.text = coilcollsion.coildata.InCoilID.ToString();
-        textWeight.text = coilcollsion.coildata.InCoilWeight.ToString();
-        textWidth.text = coilcollsion.coildata.InCoilWidth.ToString();
-        textIOD.text = coilcollsion.coildata.InCoilIOD.ToString();
-        textReceiveOrder.text = coilcollsion.coildata.InCoilReceiveOrder.ToString();
-        textSendOrder.text = coilcollsion.coildata.InCoilSendOrder.ToString();
-        */
+ 
     }
 
     public void opendetailpanel()
@@ -51,19 +44,19 @@ public class UiCraneCoildata : MonoBehaviour
 
     public void setdata()
     {
-        /*
+
         textID.text = coilcollsion.coildata.InCoilID.ToString();
         textWeight.text = coilcollsion.coildata.InCoilWeight.ToString();
         textWidth.text = coilcollsion.coildata.InCoilWidth.ToString();
         textIOD.text = coilcollsion.coildata.InCoilIOD.ToString();
         textReceiveOrder.text = coilcollsion.coildata.InCoilReceiveOrder.ToString();
         textSendOrder.text = coilcollsion.coildata.InCoilSendOrder.ToString();
-        */
+
     }
 
     public void craneleftpaneloff()
     {
-        craneleftpanel.SetActive(false);
-        cranerightpanel.SetActive(true);
+        cranerightpanel.SetActive(false);
+        craneleftpanel.SetActive(true);
     }
 }

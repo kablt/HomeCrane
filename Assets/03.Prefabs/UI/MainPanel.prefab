@@ -4363,6 +4363,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2893037088808076351}
     m_Modifications:
+    - target: {fileID: 376121114056542866, guid: 302e0a7fcde24664992753f073856c00,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 505563045224212877, guid: 302e0a7fcde24664992753f073856c00,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -4382,6 +4387,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 637829800270781299, guid: 302e0a7fcde24664992753f073856c00,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661585958344857766, guid: 302e0a7fcde24664992753f073856c00,
+        type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1932575181314706179, guid: 302e0a7fcde24664992753f073856c00,
         type: 3}
@@ -4407,6 +4422,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4157841575685343896, guid: 302e0a7fcde24664992753f073856c00,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394818556960193046, guid: 302e0a7fcde24664992753f073856c00,
+        type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4860858112799978125, guid: 302e0a7fcde24664992753f073856c00,
         type: 3}
@@ -4572,6 +4597,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Coil info Panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792587237988727478, guid: 302e0a7fcde24664992753f073856c00,
+        type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8793126753780664005, guid: 302e0a7fcde24664992753f073856c00,
         type: 3}
