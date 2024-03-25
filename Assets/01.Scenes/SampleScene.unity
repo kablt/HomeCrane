@@ -1988,6 +1988,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!65 &84278193
@@ -6608,6 +6614,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1001 &264809502
@@ -6793,6 +6805,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1001 &270548424
@@ -7732,6 +7750,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1 &312824556 stripped
@@ -8625,6 +8649,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1001 &356174873
@@ -10149,6 +10179,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1 &449207798
@@ -10706,6 +10742,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1001 &492272526
@@ -11304,6 +11346,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1 &519914387 stripped
@@ -13931,7 +13979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CraneManager: {fileID: 1233803752}
-  coil: {fileID: 0}
+  coil: {fileID: 1332351278}
   SkidGB: {fileID: 0}
   coildata: {fileID: 0}
   CoilNumber: 0
@@ -15272,6 +15320,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1 &801426320
@@ -17145,6 +17199,16 @@ PrefabInstance:
       propertyPath: detailpanel
       value: 
       objectReference: {fileID: 29353721}
+    - target: {fileID: 1591113385865001244, guid: da64682ed1fcb93488c1b65a94b4e9bc,
+        type: 3}
+      propertyPath: craneleftpanel
+      value: 
+      objectReference: {fileID: 429768010}
+    - target: {fileID: 1591113385865001244, guid: da64682ed1fcb93488c1b65a94b4e9bc,
+        type: 3}
+      propertyPath: cranerightpanel
+      value: 
+      objectReference: {fileID: 905714577}
     - target: {fileID: 1992610161588393628, guid: da64682ed1fcb93488c1b65a94b4e9bc,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -18352,7 +18416,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1591113385865001244, guid: da64682ed1fcb93488c1b65a94b4e9bc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -18468,6 +18533,7 @@ MonoBehaviour:
   LiftRoot: {fileID: 1154890883}
   detailpanel: {fileID: 29353721}
   count: 20
+  lift: {fileID: 1154890883}
 --- !u!1001 &913825470
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19171,6 +19237,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1 &962170073
@@ -21298,6 +21370,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1001 &1063185851
@@ -23072,7 +23150,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CraneManager: {fileID: 214205545}
+  coil: {fileID: 0}
   SkidGB: {fileID: 0}
+  mainpanel: {fileID: 905714577}
+  CoilID2: 0
+  CoilWeight2: 0
+  CoilWidth2: 0
+  CoilOD2: 0
+  CoilReceiveOrder2: 0
+  CoilSendOrder2: 0
 --- !u!1001 &1156805064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24849,6 +24935,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1001 &1254561994
@@ -27282,6 +27374,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1 &1366716421
@@ -31159,6 +31257,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1 &1580418913
@@ -31556,6 +31660,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1001 &1588371387
@@ -32265,6 +32375,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1 &1614878369
@@ -38401,6 +38517,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1001 &1926716632
@@ -38972,6 +39094,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1 &1962336339
@@ -39903,6 +40031,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!4 &2018764972 stripped
@@ -41075,6 +41209,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkidUse: 1
+  num: 0
+  weight: 0
+  width: 0
+  iod: 0
+  rece: 0
+  send: 0
   PirorNum: 0
   craneright: {fileID: 121575104}
 --- !u!1 &2097354720 stripped

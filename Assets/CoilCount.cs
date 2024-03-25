@@ -17,6 +17,11 @@ public class CoilCount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    public void setdata()
+    {
         mine.text = $"Coil : {uicr.count}/20";
     }
 }

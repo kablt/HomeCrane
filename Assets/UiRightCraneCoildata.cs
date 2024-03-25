@@ -16,12 +16,12 @@ public class UiRightCraneCoildata : MonoBehaviour
     public GameObject LiftRoot;
     public GameObject detailpanel; // 상황판
     public int count = 20;
-    CoilCollision coilcollsion;
+    public GameObject lift; // 리프트 스크립트 접근을 위한 함수
+    CoilCollisionRight collsionright;
     // Start is called before the first frame update
     void Start()
     {
-
-        coilcollsion = LiftRoot.GetComponent<CoilCollision>();
+        collsionright = lift.GetComponent<CoilCollisionRight>();
         textID.text = "";
         textWeight.text = "";
         textWidth.text = "";
@@ -42,16 +42,61 @@ public class UiRightCraneCoildata : MonoBehaviour
         detailpanel.SetActive(true);
     }
 
-    public void setdata()
+     public void setdata()
     {
+        if (textID != null)
+        {
+            textID.text = collsionright.CoilID2.ToString();
+        }
+        else
+        {
+            textID.text = "";
+        }
 
-        textID.text = coilcollsion.coildata.InCoilID.ToString();
-        textWeight.text = coilcollsion.coildata.InCoilWeight.ToString();
-        textWidth.text = coilcollsion.coildata.InCoilWidth.ToString();
-        textIOD.text = coilcollsion.coildata.InCoilIOD.ToString();
-        textReceiveOrder.text = coilcollsion.coildata.InCoilReceiveOrder.ToString();
-        textSendOrder.text = coilcollsion.coildata.InCoilSendOrder.ToString();
+        if (textWeight != null)
+        {
+            textWeight.text = collsionright.CoilWeight2.ToString();
+        }
+        else
+        {
+            textWeight.text = "";
+        }
 
+        if (textWidth != null)
+        {
+            textWidth.text = collsionright.CoilWidth2.ToString();
+        }
+        else
+        {
+            textWidth.text = "";
+        }
+
+        if (textIOD != null)
+        {
+            textIOD.text = collsionright.CoilOD2.ToString();
+        }
+        else
+        {
+            textIOD.text = "";
+        }
+
+        if (textReceiveOrder != null)
+        {
+            textReceiveOrder.text = collsionright.CoilReceiveOrder2.ToString();
+        }
+        else
+        {
+            textReceiveOrder.text = "";
+        }
+
+        if (textSendOrder != null)
+        {
+            textSendOrder.text = collsionright.CoilSendOrder2.ToString();
+        }
+        else
+        {
+            textSendOrder.text = "";
+        }
     }
 
     public void craneleftpaneloff()
