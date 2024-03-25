@@ -11887,13 +11887,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557465170}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07238563, y: -0.69962174, z: 0.07160779, w: 0.70722145}
-  m_LocalPosition: {x: 38.14, y: 6.45562, z: 35.8036}
+  m_LocalRotation: {x: 0.08907711, y: -0.6976929, z: 0.08848106, w: 0.7053092}
+  m_LocalPosition: {x: 37.15, y: 7.24, z: 35.8036}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1944690894}
-  m_LocalEulerAnglesHint: {x: 11.688, y: -89.381, z: 0}
+  m_LocalEulerAnglesHint: {x: 14.425, y: -89.374, z: 0.031}
 --- !u!114 &557465172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18053,6 +18053,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274137151404914343, guid: da64682ed1fcb93488c1b65a94b4e9bc,
+        type: 3}
+      propertyPath: m_text
+      value: Gate 02
       objectReference: {fileID: 0}
     - target: {fileID: 2471950603288349722, guid: da64682ed1fcb93488c1b65a94b4e9bc,
         type: 3}
