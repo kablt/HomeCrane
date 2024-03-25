@@ -8,8 +8,8 @@ public class CoilDatas : MonoBehaviour
     CSVDataLoader csvloader;
     public GameObject truck;
     truckTrigger trucktrigger;
-    public float InCoilID, InCoilWeight, InCoilWidth, InCoilOD, InCoilReceiveOrder, InCoilSendOrder;   
-    public int Number;
+    public float InCoilID, InCoilWeight, InCoilWidth, InCoilIOD, InCoilReceiveOrder, InCoilSendOrder;   
+    public int Number = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +20,7 @@ public class CoilDatas : MonoBehaviour
         InCoilID = csvloader.coilDatas[Number].CoilID;
         InCoilWeight = csvloader.coilDatas[Number].CoilWeight;
         InCoilWidth = csvloader.coilDatas[Number].CoilWidth;
-        InCoilOD = csvloader.coilDatas[Number].CoilID;
+        InCoilIOD = csvloader.coilDatas[Number].CoilOD;
         InCoilReceiveOrder = csvloader.coilDatas[Number].CoilReceiveOrder;
         InCoilSendOrder = csvloader.coilDatas[Number].CoilSendOrder;
     }

@@ -5,6 +5,9 @@ using UnityEngine.UIElements;
 
 public class CraneRightMove : MonoBehaviour
 {
+    public GameObject Rightdetailpanel;
+    public GameObject RightUI;
+    CraneStatusUI CEstatus;
     public GameObject CraneBody; // 움직일 크레인 body
     public GameObject CraneHoist; // 움직일 크레인 hosit
     public GameObject CraneLift; // 움직일 크레인 lift
@@ -37,11 +40,18 @@ public class CraneRightMove : MonoBehaviour
     }
     CraneStatus cranestatus;
     // Start is called before the first frame update
+    void Awake()
+    {
+        RightUI = GameObject.Find("Rightcranestatus");
+        CEstatus = RightUI.GetComponent<CraneStatusUI>();
+        Rightdetailpanel.SetActive(false);
+        
+    }
     void Start()
     {
         craneskidnummanager = gameObject.GetComponent<CraneSkidNumManager>();
         cranestatus = CraneStatus.Idle;
-        
+           
     }
     void Update()
     {
@@ -72,6 +82,7 @@ public class CraneRightMove : MonoBehaviour
     }
     IEnumerator IdleStatusLift()
     {
+        CEstatus.idle();
         float distanceY = Mathf.Abs(CraneLift.transform.position.y - PointCoil.position.y);
        
         if (distanceY > 0.1f && moveStatus)
@@ -97,7 +108,7 @@ public class CraneRightMove : MonoBehaviour
     //------------------------------------------------------리프트 위로 올려서 대기하는 상태. (조건에 따라 대기,코일이있는스키드이동,트럭의스키드이동으로 상태전환)------------------------------------
     IEnumerator MovePoint()
     {
-        
+        CEstatus.MoveCoil();
         Debug.Log("무브포인트 코루틴 확인");
         downSpeed = 4f;
         // Debug.Log("MovePoint로 넘어왔다.");
@@ -132,7 +143,8 @@ public class CraneRightMove : MonoBehaviour
     }
     IEnumerator MoveTruckSkid()
     {
-        downSpeed = 4f;
+        CEstatus.Movetruck();
+         downSpeed = 4f;
         // 리프트 y축으로 올리는거
         Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, LiftRollBack.position.y, CraneLift.transform.position.z);
         CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionY, moveSpeed * Time.deltaTime);

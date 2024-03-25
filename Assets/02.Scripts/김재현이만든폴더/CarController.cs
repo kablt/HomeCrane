@@ -4,6 +4,8 @@ public class CarController : MonoBehaviour
 {
     public Transform StartPoint;
     public GameObject truck;
+    public GameObject Colorchange;
+    ColorChange colorchange;
     // 충돌이 시작될 때 호출됩니다.
 
     private int[] usedValues = new int[20]; // Array to keep track of used values
@@ -14,6 +16,7 @@ public class CarController : MonoBehaviour
         if (currentIndex == 20)
         {
             Debug.Log("모든 값이 사용되었습니다.");
+            colorchange.stopcolor();
             return; // Exit the function if all values are used
         }
 
@@ -24,6 +27,7 @@ public class CarController : MonoBehaviour
         {
             component.truckNum = i;
             newObject.transform.parent = null;
+            colorchange.startcolor();
         }
         else
         {
@@ -56,6 +60,7 @@ public class CarController : MonoBehaviour
 
     void Start()
     {
+        colorchange = Colorchange.GetComponent<ColorChange>();
         MakeCar();
     }
 }

@@ -8,16 +8,26 @@ public class CoilCollision : MonoBehaviour
 {
     public GameObject CraneManager;
     CraneMove cranemove;
-    private GameObject coil;
+    public GameObject coil;
     public GameObject SkidGB;
-    CoilDatas coildata;
+    public CoilDatas coildata;
     public float CoilNumber;
     SkidLeft skidLeft;
+    public GameObject mainpanel;
+    public float CoilID2, CoilWeight2, CoilWidth2, CoilOD2, CoilReceiveOrder2, CoilSendOrder2;
+    UiCraneCoildata uiint;
+   
 
     void Awake()
     {
+       
         cranemove = CraneManager.GetComponent<CraneMove>();
+        uiint = mainpanel.GetComponent<UiCraneCoildata>();
+        
+        
     }
+
+  
 
     void OnTriggerEnter(Collider collision)
     {
@@ -30,6 +40,14 @@ public class CoilCollision : MonoBehaviour
             cranemove.LiftStatus = false;
             cranemove.moveStatus = true;
             cranemove.downSpeed = 0f;
+            CoilID2 = coildata.InCoilID;
+            CoilWeight2 = coildata.InCoilWeight;
+            CoilWidth2 = coildata.InCoilWidth;
+            CoilOD2 = coildata.InCoilIOD;
+            CoilReceiveOrder2 = coildata.InCoilReceiveOrder;
+            CoilSendOrder2 = coildata.InCoilSendOrder;
+            uiint.setdata();
+            uiint.count++;
             Debug.Log($"downspeed : {cranemove.downSpeed}");
             collision.transform.SetParent(transform);
             Debug.Log("부모바꾸는 디버그");
@@ -38,10 +56,25 @@ public class CoilCollision : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Skid"))
         {
+            //코일을 스키드에 내려놓을때 값 0으로 초기화
+            /* 
+            coildata.InCoilID = 0;
+            coildata.InCoilWeight = 0;
+            coildata.InCoilWidth = 0;
+            coildata.InCoilOD = 0;
+            coildata.InCoilReceiveOrder = 0;
+            coildata.InCoilSendOrder = 0;
+            */
             Debug.Log("Crash with Skid");
             SkidGB = collision.gameObject;
             skidLeft = SkidGB.GetComponent<SkidLeft>();
             skidLeft.SkidUse = false;
+            skidLeft.num = coildata.InCoilID;
+            skidLeft.weight = coildata.InCoilWeight;
+            skidLeft.width = coildata.InCoilWidth;
+            skidLeft.iod = coildata.InCoilIOD;
+            skidLeft.rece = coildata.InCoilReceiveOrder;
+            skidLeft.send = coildata.InCoilSendOrder;
             cranemove.moveStatus = false;
             cranemove.StopMovePoint();
             coil.transform.SetParent(collision.transform);

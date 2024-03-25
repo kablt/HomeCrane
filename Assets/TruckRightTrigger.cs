@@ -8,16 +8,20 @@ public class TruckRightTrigger : MonoBehaviour
 {
     private GameObject ExitPoint;
     private GameObject TruckPointA;
+    public GameObject Rightcolorchange;
+    ColorRightChange colorright;
     public bool changetrigger = true;
 
     // OnTriggerExit 함수는 트리거 영역을 빠져나갈 때 호출됩니다.
     void Start()
     {
+        Rightcolorchange = GameObject.Find("ColorChangeRight");
+        colorright = Rightcolorchange.GetComponent<ColorRightChange>();
         // Scene에서 ExitPoint GameObject를 찾아서 할당합니다.
         ExitPoint = GameObject.Find("TruckRightExit");
         TruckPointA = GameObject.Find("TruckRightPosition");
-
         StartCoroutine(GoPointA());
+      
     }
 
 
@@ -32,6 +36,7 @@ public class TruckRightTrigger : MonoBehaviour
         }
         if (other.CompareTag("RightPoint") && changetrigger ==true)
         {
+            colorright.waitcolor();
             Debug.Log("Right 컴페얼태그  확인");
             StopAllCoroutines();
         }
@@ -42,6 +47,7 @@ public class TruckRightTrigger : MonoBehaviour
         if(other.CompareTag("RightLift"))
         {
             Debug.Log("트럭트리거불린 폴스 교체");
+            colorright.exitcolor();
             changetrigger = false;
             StartCoroutine(GoHome());
         }

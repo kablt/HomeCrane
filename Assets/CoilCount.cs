@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class SkidLeft : MonoBehaviour
+public class CoilCount : MonoBehaviour
 {
-    public bool SkidUse = true;
-    public float num, weight, width, iod, rece, send;
+    public GameObject mainpaenl;
+    public TextMeshProUGUI mine;
+    public int coilcount;
     // Start is called before the first frame update
     void Start()
     {
-        
+     
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        mine.text = $"Coil : {coilcount}/20";
     }
+
 }

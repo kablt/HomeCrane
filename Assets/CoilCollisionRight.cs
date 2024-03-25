@@ -8,14 +8,21 @@ public class CoilCollisionRight : MonoBehaviour
 {
     public GameObject CraneManager; //코일무브 스크립트를 가지고있는 게임오브젝트
     CraneRightMove cranerightmove; // 코일무브가 가지고있는 스크립트를 접근하기위한 변수
-    private GameObject coil; //충돌한 코일 오브젝트의 정보를 저장할 게임오브젝트
+    public GameObject coil; //충돌한 코일 오브젝트의 정보를 저장할 게임오브젝트
     public GameObject SkidGB;//충돌한 스키드의 정보를 저장할 스키드 오브젝트
     CoilrightData coilrighrdata; //충돌한 코일의 스크립트의 접근하기위한 변수
+    public GameObject mainpanel;
+    UiRightCraneCoildata uiint;
+    public float CoilID2, CoilWeight2, CoilWidth2, CoilOD2, CoilReceiveOrder2, CoilSendOrder2;
+    CoilCount coilcount;
+    public GameObject listpanel;
 
 
     void Awake()
     {
         cranerightmove = CraneManager.GetComponent<CraneRightMove>();
+        uiint = mainpanel.GetComponent<UiRightCraneCoildata>();
+        coilcount = listpanel.GetComponent<CoilCount>();
     }
 
     void OnTriggerEnter(Collider collision)
@@ -26,6 +33,13 @@ public class CoilCollisionRight : MonoBehaviour
             coil = collision.gameObject;
             coilrighrdata = coil.GetComponent<CoilrightData>();  
             collision.transform.SetParent(transform);
+            CoilID2 = coilrighrdata.CoilID2;
+            CoilWeight2 = coilrighrdata.CoilWeight2;
+            CoilWidth2 = coilrighrdata.CoilWidth2;
+            CoilOD2 = coilrighrdata.CoilOD2;
+            CoilReceiveOrder2 = coilrighrdata.CoilReceiveOrder2;
+            CoilSendOrder2 = coilrighrdata.CoilSendOrder2;
+            coilcount.coilcount--;
             cranerightmove.downStatus = true;
             cranerightmove.StopAllCoroutines();
             cranerightmove.PointToTruck();
