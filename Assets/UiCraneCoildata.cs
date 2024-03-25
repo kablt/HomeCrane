@@ -32,17 +32,30 @@ public class UiCraneCoildata : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         textID.text = coilcollsion.coildata.InCoilID.ToString();
         textWeight.text = coilcollsion.coildata.InCoilWeight.ToString();
         textWidth.text = coilcollsion.coildata.InCoilWidth.ToString();
         textIOD.text = coilcollsion.coildata.InCoilIOD.ToString();
         textReceiveOrder.text = coilcollsion.coildata.InCoilReceiveOrder.ToString();
         textSendOrder.text = coilcollsion.coildata.InCoilSendOrder.ToString();
-
+        */
     }
 
     public void opendetailpanel()
     {
         detailpanel.SetActive(true);
+    }
+
+    public void setdata()
+    {
+        
+        textID.text = coilcollsion.coildata.InCoilID.ToString();
+        textWeight.text = coilcollsion.coildata.InCoilWeight.ToString();
+        textWidth.text = coilcollsion.coildata.InCoilWidth.ToString();
+        textIOD.text = coilcollsion.coildata.InCoilIOD.ToString();
+        textReceiveOrder.text = coilcollsion.coildata.InCoilReceiveOrder.ToString();
+        textSendOrder.text = coilcollsion.coildata.InCoilSendOrder.ToString();
+        
     }
 }

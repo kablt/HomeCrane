@@ -36,6 +36,7 @@ public class CoilCollision : MonoBehaviour
             cranemove.LiftStatus = false;
             cranemove.moveStatus = true;
             cranemove.downSpeed = 0f;
+            uiint.setdata();
             Debug.Log($"downspeed : {cranemove.downSpeed}");
             collision.transform.SetParent(transform);
             Debug.Log("부모바꾸는 디버그");
