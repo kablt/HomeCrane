@@ -7,17 +7,25 @@ using TMPro;
 public class ColorChange : MonoBehaviour
 {
     public TMP_Text textComponentStart; // 자동차 들어오는중 
-    public TMP_Text textComponentWait;// 자동차 대기중
-    public TMP_Text textComponentExit;// 자동차 나가는중
-    public Color color1 = Color.red; // 첫 번째 색상
-    public Color color2 = Color.blue; // 두 번째 색상
-    private bool isColor1 = true; // 현재 색상 상태를 추적
+    public TMP_Text textComponentWait;  // 자동차 대기중
+    public TMP_Text textComponentExit;  // 자동차 나가는중
+    public Color color1 = Color.white;  // 첫 번째 색상
+    public Color color2;                // 두 번째 색상 (from hexadecimal)
+    public string hexColor = "3BC047";  // 두 번째 색상의 hexadecimal 값
+    private bool isColor1 = true;       // 현재 색상 상태를 추적
 
     void Start()
     {
-        
+        color1 = Color.white;
+        color2 = HexToColor(hexColor);
     }
 
+    Color HexToColor(string hex)
+    {
+        Color color;
+        ColorUtility.TryParseHtmlString("#" + hex, out color);
+        return color;
+    }
     IEnumerator ChangeColorStart()
     {
         while (true) // 무한 루프

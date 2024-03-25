@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class CraneMove : MonoBehaviour
 {
+    public GameObject cranestatusUI;
+    CraneStatusUI cranestatus;
     public Transform PointA; //코일이 있는 위치
     public Transform LiftRollBack; // 리프트가 대기할떄의 y축 위치
     public float moveSpeed = 4f; // 크레인이 움직이는 속도
@@ -33,7 +35,9 @@ public class CraneMove : MonoBehaviour
     CraneStatus cranstatus;
     void Start()
     {
+        cranestatusUI = GameObject.Find("CranePanelStatus");
         cranstatus = CraneStatus.Idle;
+        cranestatus = cranestatusUI.GetComponent<CraneStatusUI>();
     }
     void Update()
     {
@@ -81,6 +85,7 @@ public class CraneMove : MonoBehaviour
     //잡을 코일이 없을떄 대기 상태에 들어가기 위한 코루틴
     IEnumerator IdleStatusLift()
     {
+        cranestatus.idle();
         Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, LiftRollBack.position.y, CraneLift.transform.position.z);
         CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionY, moveSpeed * Time.deltaTime);
         yield return new WaitForSeconds(1f);
@@ -107,6 +112,7 @@ public class CraneMove : MonoBehaviour
     //코일을 집기위해 APoint로 옮기는 함수
     IEnumerator MovementRoutine()
     {
+        cranestatus.Movetruck();
         downSpeed = 4f;
         // 리프트 y축으로 올리는거
         Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, LiftRollBack.position.y, CraneLift.transform.position.z);
@@ -183,6 +189,7 @@ public class CraneMove : MonoBehaviour
     //코일 충돌후 위치가 리프트로 업데이트 디고 있을떄 목표지점으로 이동하는 함수
     IEnumerator MovePoint()
     {
+        cranestatus.MoveCoil();
         InitializePointB();
         downSpeed = 4f;
        // Debug.Log("MovePoint로 넘어왔다.");
