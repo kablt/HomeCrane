@@ -20,8 +20,4 @@ public class CoilCount : MonoBehaviour
         mine.text = $"Coil : {coilcount}/20";
     }
 
-    public void setdata()
-    {
-       
-    }
 }
