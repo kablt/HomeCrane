@@ -5,8 +5,7 @@ using UnityEngine;
 public class CoilrightData : MonoBehaviour
 {
     public int coilrightcode;
-    public float CoilID2, CoilWeight2, CoilWidth2, CoilOD2; // 이제 이 필드들은 float 타입입니다.
-    public float CoilReceiveOrder2, CoilSendOrder2;
+    public float CoilID2, CoilWeight2, CoilWidth2, CoilOD2, CoilReceiveOrder2, CoilSendOrder2; // 이제 이 필드들은 float 타입입니다.
     public GameObject CsvLoader;
     CSVDataLoader csvDataloader;
     // Start is called before the first frame update

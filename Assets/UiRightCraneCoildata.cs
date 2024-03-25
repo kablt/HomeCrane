@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UiCraneCoildata : MonoBehaviour
+public class UiRightCraneCoildata : MonoBehaviour
 {
     public GameObject craneleftpanel;
     public GameObject cranerightpanel;
@@ -15,13 +15,13 @@ public class UiCraneCoildata : MonoBehaviour
     public TextMeshProUGUI textSendOrder;
     public GameObject LiftRoot;
     public GameObject detailpanel; // 상황판
-    public int count = 0;
-    CoilCollision coilcollsion;
+    public int count = 20;
+    public GameObject lift; // 리프트 스크립트 접근을 위한 함수
+    CoilCollisionRight collsionright;
     // Start is called before the first frame update
     void Start()
     {
-      
-        coilcollsion = LiftRoot.GetComponent<CoilCollision>();
+        collsionright = lift.GetComponent<CoilCollisionRight>();
         textID.text = "";
         textWeight.text = "";
         textWidth.text = "";
@@ -34,14 +34,7 @@ public class UiCraneCoildata : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        textID.text = coilcollsion.coildata.InCoilID.ToString();
-        textWeight.text = coilcollsion.coildata.InCoilWeight.ToString();
-        textWidth.text = coilcollsion.coildata.InCoilWidth.ToString();
-        textIOD.text = coilcollsion.coildata.InCoilIOD.ToString();
-        textReceiveOrder.text = coilcollsion.coildata.InCoilReceiveOrder.ToString();
-        textSendOrder.text = coilcollsion.coildata.InCoilSendOrder.ToString();
-        */
+ 
     }
 
     public void opendetailpanel()
@@ -49,11 +42,11 @@ public class UiCraneCoildata : MonoBehaviour
         detailpanel.SetActive(true);
     }
 
-    public void setdata()
+     public void setdata()
     {
         if (textID != null)
         {
-            textID.text = coilcollsion.coildata.InCoilID.ToString();
+            textID.text = collsionright.CoilID2.ToString();
         }
         else
         {
@@ -62,7 +55,7 @@ public class UiCraneCoildata : MonoBehaviour
 
         if (textWeight != null)
         {
-            textWeight.text = coilcollsion.coildata.InCoilWeight.ToString();
+            textWeight.text = collsionright.CoilWeight2.ToString();
         }
         else
         {
@@ -71,7 +64,7 @@ public class UiCraneCoildata : MonoBehaviour
 
         if (textWidth != null)
         {
-            textWidth.text = coilcollsion.coildata.InCoilWidth.ToString();
+            textWidth.text = collsionright.CoilWidth2.ToString();
         }
         else
         {
@@ -80,7 +73,7 @@ public class UiCraneCoildata : MonoBehaviour
 
         if (textIOD != null)
         {
-            textIOD.text = coilcollsion.coildata.InCoilIOD.ToString();
+            textIOD.text = collsionright.CoilOD2.ToString();
         }
         else
         {
@@ -89,7 +82,7 @@ public class UiCraneCoildata : MonoBehaviour
 
         if (textReceiveOrder != null)
         {
-            textReceiveOrder.text = coilcollsion.coildata.InCoilReceiveOrder.ToString();
+            textReceiveOrder.text = collsionright.CoilReceiveOrder2.ToString();
         }
         else
         {
@@ -98,7 +91,7 @@ public class UiCraneCoildata : MonoBehaviour
 
         if (textSendOrder != null)
         {
-            textSendOrder.text = coilcollsion.coildata.InCoilSendOrder.ToString();
+            textSendOrder.text = collsionright.CoilSendOrder2.ToString();
         }
         else
         {
@@ -108,7 +101,7 @@ public class UiCraneCoildata : MonoBehaviour
 
     public void craneleftpaneloff()
     {
-        craneleftpanel.SetActive(false);
-        cranerightpanel.SetActive(true);
+        cranerightpanel.SetActive(false);
+        craneleftpanel.SetActive(true);
     }
 }
