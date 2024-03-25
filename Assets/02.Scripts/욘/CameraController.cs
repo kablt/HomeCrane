@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Camera mainCamera;
+    public Transform R_MainCamera;
 
     public Transform L_frontView;
     public Transform L_sideView;
@@ -30,6 +31,21 @@ public class CameraController : MonoBehaviour
         topView.gameObject.SetActive(false);
         R_frontView.gameObject.SetActive(false);
         R_sideView.gameObject.SetActive(false);
+        R_MainCamera.gameObject.SetActive(false);
+    }
+
+    public void RightMainCamera()
+    {
+        // 메인 카메라 활성화
+        R_MainCamera.gameObject.SetActive(true);
+
+        // 나머지 카메라 비활성화
+        mainCamera.gameObject.SetActive(false);
+        L_frontView.gameObject.SetActive(false);
+        L_sideView.gameObject.SetActive(false);
+        topView.gameObject.SetActive(false);
+        R_frontView.gameObject.SetActive(false);
+        R_sideView.gameObject.SetActive(false);
     }
 
     public void LeftFrontCamera()
@@ -41,6 +57,7 @@ public class CameraController : MonoBehaviour
         topView.gameObject.SetActive(false);
         R_sideView.gameObject.SetActive(false);
         R_frontView.gameObject.SetActive(false);
+        R_MainCamera.gameObject.SetActive(false);
     }
     public void LeftSideCamera()
     {
@@ -51,6 +68,7 @@ public class CameraController : MonoBehaviour
         topView.gameObject.SetActive(false);
         R_sideView.gameObject.SetActive(false);
         R_frontView.gameObject.SetActive(false);
+        R_MainCamera.gameObject.SetActive(false);
     }
     public void TopCamera()
     {
@@ -61,6 +79,7 @@ public class CameraController : MonoBehaviour
         L_sideView.gameObject.SetActive(false);
         R_sideView.gameObject.SetActive(false);
         R_frontView.gameObject.SetActive(false);
+        R_MainCamera.gameObject.SetActive(false);
     }
 
     public void RightFrontCamera()
@@ -72,6 +91,7 @@ public class CameraController : MonoBehaviour
         L_frontView.gameObject.SetActive(false);
         L_sideView.gameObject.SetActive(false);
         topView.gameObject.SetActive(false);
+        R_MainCamera.gameObject.SetActive(false);
     }
     public void RightSideCamera()
     {
@@ -82,6 +102,7 @@ public class CameraController : MonoBehaviour
         L_frontView.gameObject.SetActive(false);
         L_sideView.gameObject.SetActive(false);
         topView.gameObject.SetActive(false);
+        R_MainCamera.gameObject.SetActive(false);
     }
 
 }
