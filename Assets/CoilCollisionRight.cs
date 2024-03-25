@@ -14,12 +14,15 @@ public class CoilCollisionRight : MonoBehaviour
     public GameObject mainpanel;
     UiRightCraneCoildata uiint;
     public float CoilID2, CoilWeight2, CoilWidth2, CoilOD2, CoilReceiveOrder2, CoilSendOrder2;
+    CoilCount coilcount;
+    public GameObject listpanel;
 
 
     void Awake()
     {
         cranerightmove = CraneManager.GetComponent<CraneRightMove>();
         uiint = mainpanel.GetComponent<UiRightCraneCoildata>();
+        coilcount = listpanel.GetComponent<CoilCount>();
     }
 
     void OnTriggerEnter(Collider collision)
@@ -36,8 +39,8 @@ public class CoilCollisionRight : MonoBehaviour
             CoilOD2 = coilrighrdata.CoilOD2;
             CoilReceiveOrder2 = coilrighrdata.CoilReceiveOrder2;
             CoilSendOrder2 = coilrighrdata.CoilSendOrder2;
+            coilcount.coilcount--;
             cranerightmove.downStatus = true;
-            uiint.setdata();
             cranerightmove.StopAllCoroutines();
             cranerightmove.PointToTruck();
             Debug.Log("부모바꾸는 디버그");

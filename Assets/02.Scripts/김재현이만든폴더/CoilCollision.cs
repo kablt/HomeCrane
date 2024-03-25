@@ -14,6 +14,7 @@ public class CoilCollision : MonoBehaviour
     public float CoilNumber;
     SkidLeft skidLeft;
     public GameObject mainpanel;
+    public float CoilID2, CoilWeight2, CoilWidth2, CoilOD2, CoilReceiveOrder2, CoilSendOrder2;
     UiCraneCoildata uiint;
 
     void Awake()
@@ -36,6 +37,12 @@ public class CoilCollision : MonoBehaviour
             cranemove.LiftStatus = false;
             cranemove.moveStatus = true;
             cranemove.downSpeed = 0f;
+            CoilID2 = coildata.InCoilID;
+            CoilWeight2 = coildata.InCoilWeight;
+            CoilWidth2 = coildata.InCoilWidth;
+            CoilOD2 = coildata.InCoilIOD;
+            CoilReceiveOrder2 = coildata.InCoilReceiveOrder;
+            CoilSendOrder2 = coildata.InCoilSendOrder;
             uiint.setdata();
             Debug.Log($"downspeed : {cranemove.downSpeed}");
             collision.transform.SetParent(transform);

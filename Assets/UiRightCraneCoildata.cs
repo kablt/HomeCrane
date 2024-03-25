@@ -13,14 +13,15 @@ public class UiRightCraneCoildata : MonoBehaviour
     public TextMeshProUGUI textIOD;
     public TextMeshProUGUI textReceiveOrder;
     public TextMeshProUGUI textSendOrder;
-    public GameObject LiftRoot;
     public GameObject detailpanel; // 상황판
     public int count = 20;
     public GameObject lift; // 리프트 스크립트 접근을 위한 함수
     CoilCollisionRight collsionright;
     // Start is called before the first frame update
+
     void Start()
     {
+        lift = GameObject.Find("LiftRoot");
         collsionright = lift.GetComponent<CoilCollisionRight>();
         textID.text = "";
         textWeight.text = "";
