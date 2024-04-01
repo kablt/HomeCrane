@@ -10,8 +10,8 @@ public class CraneMove : MonoBehaviour
     CraneStatusUI cranestatus;
     public Transform PointA; //코일이 있는 위치
     public Transform LiftRollBack; // 리프트가 대기할떄의 y축 위치
-    public float moveSpeed = 4f; // 크레인이 움직이는 속도
-    public float downSpeed = 4f; // 크레인 내려가는 속도
+    public float moveSpeed = 0.3f; // 크레인이 움직이는 속도
+    public float downSpeed = 0.3f; // 크레인 내려가는 속도
     public GameObject CraneBody; // 움직일 크레인 body
     public GameObject CraneHoist; // 움직일 크레인 hosit
     public GameObject CraneLift; // 움직일 크레인 lift
@@ -23,6 +23,10 @@ public class CraneMove : MonoBehaviour
     public bool moveStatus = true;
     public Transform PointB;
     public Transform[] SkidPositions;
+    //크레인 코루틴 반복 방지
+    private bool isMovingPickUpPoint = false;
+    private bool isDetectingCoil = false;
+    private bool isMovingToB = false;
 
     enum CraneStatus
     {
@@ -40,29 +44,38 @@ public class CraneMove : MonoBehaviour
         cranestatus = cranestatusUI.GetComponent<CraneStatusUI>();
     }
     void Update()
+{
+    switch (cranstatus)
     {
-
-        switch (cranstatus)
-        {
-            case CraneStatus.Idle:
-                IdleMove();
-                break;
-            case CraneStatus.MovePickUpPoint:
+        case CraneStatus.Idle:
+            IdleMove();
+            break;
+        case CraneStatus.MovePickUpPoint:
+            if (!isMovingPickUpPoint)
+            {
                 MovePickUpPoint();
-                break;
-            case CraneStatus.Detected:
+                isMovingPickUpPoint = true;
+            }
+            break;
+        case CraneStatus.Detected:
+            if (!isDetectingCoil)
+            {
                 CraneDetectedCoil();
-                break;
-            case CraneStatus.CoilMove:
-                StopCoroutine(DetectCoil());
+                isDetectingCoil = true;
+            }
+            break;
+        case CraneStatus.CoilMove:
+            if (!isMovingToB)
+            {
                 MovementPointB();
-                break;
-            default:
-                Debug.Log("오류가 발생했습니다");
-                break;
-        }
-
+                isMovingToB = true;
+            }
+            break;
+        default:
+            Debug.Log("An error occurred");
+            break;
     }
+}
 
     //-------------------------------------------------------------IDLE------------------------------------------------------------------------
     //대기상태일떄 리프트 올려두기
@@ -86,9 +99,10 @@ public class CraneMove : MonoBehaviour
     IEnumerator IdleStatusLift()
     {
         cranestatus.idle();
+        moveSpeed = 1f;
         Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, LiftRollBack.position.y, CraneLift.transform.position.z);
         CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionY, moveSpeed * Time.deltaTime);
-        yield return new WaitForSeconds(1f);
+        yield return null;
         float timer = 3;
         LayShoot objectBShooter = LayShooter.GetComponent<LayShoot>();
         if(time == timer)
@@ -113,23 +127,36 @@ public class CraneMove : MonoBehaviour
     IEnumerator MovementRoutine()
     {
         cranestatus.Movetruck();
-        downSpeed = 4f;
+        moveSpeed = 2f;
         // 리프트 y축으로 올리는거
         Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, LiftRollBack.position.y, CraneLift.transform.position.z);
-        CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionY, moveSpeed * Time.deltaTime);
-        //Debug.Log("Move1");
-        yield return new WaitForSeconds(1f);
+        while (Vector3.Distance(CraneLift.transform.position, targetPositionY) > 0.1f)
+        {
+            CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionY, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+      
+
         //Hoist z축으로 움직이는거
         Vector3 targetpositionZ = new Vector3(CraneHoist.transform.position.x, CraneHoist.transform.position.y, PointA.position.z);
-        CraneHoist.transform.position = Vector3.Lerp(CraneHoist.transform.position, targetpositionZ, moveSpeed * Time.deltaTime);
-        //Debug.Log("Move2");
-        yield return new WaitForSeconds(1f);
+        while (Vector3.Distance(CraneHoist.transform.position, targetpositionZ) > 0.1f)
+        {
+            CraneHoist.transform.position = Vector3.Lerp(CraneHoist.transform.position, targetpositionZ, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+       
+
         // Body를 x축으로 움직이기
         Vector3 targetpositionX = new Vector3(PointA.position.x, CraneBody.transform.position.y, CraneBody.transform.position.z);
-        CraneBody.transform.position = Vector3.Lerp(CraneBody.transform.position, targetpositionX, moveSpeed * Time.deltaTime);
-        //Debug.Log("Move3");
-        yield return new WaitForSeconds(1f);
+        while (Vector3.Distance(CraneBody.transform.position, targetpositionX) > 0.1f)
+        {
+            CraneBody.transform.position = Vector3.Lerp(CraneBody.transform.position, targetpositionX, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+        
+
         LiftStatus = true;
+        isMovingPickUpPoint = false;
         cranstatus = CraneStatus.Detected;
     }
     //-----------------------------------------LiftDown-------------------------------------------------------------------------
@@ -145,30 +172,38 @@ public class CraneMove : MonoBehaviour
 
     IEnumerator DetectCoil()
     {
-       // Debug.Log("리프트 내려가는중");
+        downSpeed = 2f;
+        // 목표 위치
         Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, PointA.position.y, CraneLift.transform.position.z);
-        float distance = Vector3.Distance(CraneLift.transform.position, targetPositionY);
-        if (distance > 0.01f && LiftStatus == true)
+
+        // 목표 위치에 도달할 때까지 이동
+        while (Vector3.Distance(CraneLift.transform.position, targetPositionY) > 0.01f && LiftStatus == true)
         {
-            Debug.Log("여기도 반복되고있는가");
             CraneLift.transform.position = Vector3.MoveTowards(CraneLift.transform.position, targetPositionY, downSpeed * Time.deltaTime);
             yield return null;
-            distance = Vector3.Distance(CraneLift.transform.position, targetPositionY);
         }
 
-        yield return new WaitForSeconds(1f);
+        // 대기 시간
+       
 
+        // 올라가는 동작
         if (downSpeed == 0f && cranstatus != CraneStatus.CoilMove)
         {
-            //다시 올라가는거
+            // 올라가는 위치
             Vector3 targetPositionYT = new Vector3(CraneLift.transform.position.x, LiftRollBack.position.y, CraneLift.transform.position.z);
-            CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionYT, moveSpeed * Time.deltaTime);
+
+            // 목표 위치에 도달할 때까지 이동
+            while (Vector3.Distance(CraneLift.transform.position, targetPositionYT) > 0.01f)
+            {
+                CraneLift.transform.position = Vector3.Lerp(CraneLift.transform.position, targetPositionYT, moveSpeed * Time.deltaTime);
+                yield return null;
+            }
+
             // Once the lift has reached the target position, change crane status
-           // Debug.Log("코일상탭전환체크");
-            yield return new WaitForSeconds(3f);
+           
             cranstatus = CraneStatus.CoilMove;
         }
-
+        isDetectingCoil = false;
     }
     //-----------------------------------------(MoveTOSkid)-------------------------------------------------------------------------
 
@@ -191,30 +226,33 @@ public class CraneMove : MonoBehaviour
     {
         cranestatus.MoveCoil();
         InitializePointB();
-        downSpeed = 4f;
-       // Debug.Log("MovePoint로 넘어왔다.");
-        yield return new WaitForSeconds(1f);
-       // Debug.Log("포인트지점으로 옮기는 함수가 시작되는 부분이다.");
+
+        // Body를 x축으로 이동
         Vector3 targetpositionX = new Vector3(PointB.position.x, CraneBody.transform.position.y, CraneBody.transform.position.z);
-        CraneBody.transform.position = Vector3.Lerp(CraneBody.transform.position, targetpositionX, downSpeed * Time.deltaTime);
-        yield return new WaitForSeconds(1f);
-        Vector3 targetpositionZ = new Vector3(CraneHoist.transform.position.x, CraneHoist.transform.position.y, PointB.position.z);
-        CraneHoist.transform.position = Vector3.Lerp(CraneHoist.transform.position, targetpositionZ, downSpeed * Time.deltaTime);
-        yield return new WaitForSeconds(1f);
-
-
-
-        Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, PointB.position.y, CraneLift.transform.position.z);
-        float distance = Vector3.Distance(CraneLift.transform.position, targetPositionY);
-        if (distance > 0.01f && moveStatus == true)
+        while (Vector3.Distance(CraneBody.transform.position, targetpositionX) > 0.01f)
         {
-            CraneLift.transform.position = Vector3.MoveTowards(CraneLift.transform.position, targetPositionY, downSpeed * Time.deltaTime);
+            CraneBody.transform.position = Vector3.Lerp(CraneBody.transform.position, targetpositionX, moveSpeed * Time.deltaTime);
             yield return null;
-            distance = Vector3.Distance(CraneLift.transform.position, targetPositionY);
         }
-        yield return new WaitForSeconds(2f);
-        //해당위치 도착한 후 , 코일의 위치가 리프트의 특정위치로 업데이트되고있는 상황에서 리프트가 내려가는 매서드 실행. 내려가는동안 스키드의 특정부분과 충돌시 코일의 위치가 리프트의 특정 위치로 업데이트 되는 함수 종료. 
-        //코일의 위치를 스키드의 특정위치로 옮기는 함수 만들어서 코일이 해당 위치에 놓여지는 것처럼 보이게 만들기
+
+        // Hoist를 z축으로 이동
+        Vector3 targetpositionZ = new Vector3(CraneHoist.transform.position.x, CraneHoist.transform.position.y, PointB.position.z);
+        while (Vector3.Distance(CraneHoist.transform.position, targetpositionZ) > 0.01f)
+        {
+            CraneHoist.transform.position = Vector3.Lerp(CraneHoist.transform.position, targetpositionZ, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        // Lift를 y축으로 이동
+        Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, PointB.position.y, CraneLift.transform.position.z);
+        while (Vector3.Distance(CraneLift.transform.position, targetPositionY) > 0.01f && moveStatus == true)
+        {
+            CraneLift.transform.position = Vector3.MoveTowards(CraneLift.transform.position, targetPositionY, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+        isMovingToB = false;
+
+        // 해당 위치 도착 후 처리할 내용 추가
     }
 
     void InitializePointB()

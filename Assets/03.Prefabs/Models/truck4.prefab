@@ -84,59 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &755539337176452598
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2226827684878161623}
-  - component: {fileID: 1499058444572110724}
-  m_Layer: 6
-  m_Name: PickUpcoilPoint
-  m_TagString: ExitCoil
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2226827684878161623
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 755539337176452598}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: 0.49999997, z: -0.5, w: 0.50000006}
-  m_LocalPosition: {x: 0.0032000004, y: 0.0020999908, z: -0.0011999989}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2839326269141302308}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1499058444572110724
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 755539337176452598}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1342171560071497482
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,6 +484,7 @@ GameObject:
   - component: {fileID: 1406102843993084339}
   - component: {fileID: 1108883018155548512}
   - component: {fileID: 5930208193099941213}
+  - component: {fileID: 4553356258959361351}
   m_Layer: 6
   m_Name: coil
   m_TagString: Coil
@@ -556,8 +504,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.2, z: 3.125}
   m_LocalScale: {x: 125, y: 125, z: 125}
   m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 2226827684878161623}
+  m_Children: []
   m_Father: {fileID: 2751451042404528413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1209370051733697409
@@ -654,7 +601,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.0064160083, y: 0.01816881, z: 0.023650356}
   m_Center: {x: -0.0012080052, y: -0.0029108205, z: -0.00432518}
@@ -675,10 +622,32 @@ MonoBehaviour:
   InCoilID: 0
   InCoilWeight: 0
   InCoilWidth: 0
-  InCoilOD: 0
+  InCoilIOD: 0
   InCoilReceiveOrder: 0
   InCoilSendOrder: 0
   Number: 0
+--- !u!64 &4553356258959361351
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3183060454132573854}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2534964839176971238, guid: b6c85c7b903fec842b26e7ac7d69072f, type: 3}
 --- !u!1 &3270966320234376103
 GameObject:
   m_ObjectHideFlags: 0

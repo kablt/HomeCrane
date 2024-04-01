@@ -19,7 +19,7 @@ public class CarController : MonoBehaviour
             colorchange.stopcolor();
             return; // Exit the function if all values are used
         }
-
+        Debug.Log("왼쪽차 생성");
         int i = FindUnusedValue();
         GameObject newObject = Instantiate(truck, StartPoint);
         truckTrigger component = newObject.GetComponent<truckTrigger>(); 

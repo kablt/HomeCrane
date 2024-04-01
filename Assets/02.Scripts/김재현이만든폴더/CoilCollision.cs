@@ -36,7 +36,7 @@ public class CoilCollision : MonoBehaviour
         {
             coil = collision.gameObject;
             coildata = coil.GetComponent<CoilDatas>();
-            CoilNumber = coildata.Number;
+            CoilNumber = coildata.InCoilReceiveOrder;
             cranemove.LiftStatus = false;
             cranemove.moveStatus = true;
             cranemove.downSpeed = 0f;
@@ -78,7 +78,11 @@ public class CoilCollision : MonoBehaviour
             cranemove.moveStatus = false;
             cranemove.StopMovePoint();
             coil.transform.SetParent(collision.transform);
-            coil.transform.position = collision.transform.position;
+            
+            Vector3 newPosition = coil.transform.localPosition;
+            newPosition.y += 0.0012586795f; // Add the desired offset
+            coil.transform.localPosition = newPosition;
+            
             coil.GetComponent<Rigidbody>().velocity = Vector3.zero;
             // Function called when a collision with an object with the Skid tag has ended
         }
