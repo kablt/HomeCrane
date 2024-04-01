@@ -193,9 +193,13 @@ public class CraneMove : MonoBehaviour
         InitializePointB();
         downSpeed = 4f;
        // Debug.Log("MovePoint로 넘어왔다.");
-        yield return new WaitForSeconds(1f);
-       // Debug.Log("포인트지점으로 옮기는 함수가 시작되는 부분이다.");
+        yield return new WaitForSeconds(1f); //1초대기 (단계마다 일정한 시간을 대기함)
+
+       // 코일이 포인트지점으로 옮기는 함수가 시작되는 부분
+       // 크레인 body가 X축으로 이동할 목표 위치를 설정
         Vector3 targetpositionX = new Vector3(PointB.position.x, CraneBody.transform.position.y, CraneBody.transform.position.z);
+
+        //Lerp함수를 사용하여 크레인 body를 목표 위치로 부드럽게 이동시킴
         CraneBody.transform.position = Vector3.Lerp(CraneBody.transform.position, targetpositionX, downSpeed * Time.deltaTime);
         yield return new WaitForSeconds(1f);
         Vector3 targetpositionZ = new Vector3(CraneHoist.transform.position.x, CraneHoist.transform.position.y, PointB.position.z);
@@ -203,12 +207,15 @@ public class CraneMove : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
 
-
+        //리프트가 내려갈 Y축 위치를 설정
         Vector3 targetPositionY = new Vector3(CraneLift.transform.position.x, PointB.position.y, CraneLift.transform.position.z);
+
         float distance = Vector3.Distance(CraneLift.transform.position, targetPositionY);
         if (distance > 0.01f && moveStatus == true)
         {
             CraneLift.transform.position = Vector3.MoveTowards(CraneLift.transform.position, targetPositionY, downSpeed * Time.deltaTime);
+            //MoveTowards함수를 사용하여 리프트를 목표Y축 위치로 이동시킴
+
             yield return null;
             distance = Vector3.Distance(CraneLift.transform.position, targetPositionY);
         }
