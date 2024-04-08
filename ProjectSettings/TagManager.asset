@@ -12,7 +12,6 @@ TagManager:
   - ExitCoil
   - RightPoint
   - RightSK
-  - RightLift
   layers:
   - Default
   - TransparentFX

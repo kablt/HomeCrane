@@ -21,7 +21,8 @@ public class CarController : MonoBehaviour
         }
         Debug.Log("왼쪽차 생성");
         int i = FindUnusedValue();
-        GameObject newObject = Instantiate(truck, StartPoint);
+        Vector3 globalPosition = StartPoint.position;
+        GameObject newObject = Instantiate(truck, globalPosition, Quaternion.identity);
         truckTrigger component = newObject.GetComponent<truckTrigger>(); 
         if (component != null)
         {
