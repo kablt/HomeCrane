@@ -49,6 +49,7 @@ MonoBehaviour:
   skid:
   - {fileID: 6955791733098287386}
   - {fileID: 6039600763187569785}
+  - {fileID: 7631697710860648424}
   SkidBoolLeft: 1
   SkidBoolRight: 1
 --- !u!1001 &126704225647541669
