@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class CoilDatas : MonoBehaviour
 {
+    truckTrigger trucktrigger;
+    public GameObject truck;
     public GameObject csv;
     CSVDataLoader csvloader;
-    public GameObject truck;
-    truckTrigger trucktrigger;
     public float InCoilID, InCoilWeight, InCoilWidth, InCoilIOD, InCoilReceiveOrder, InCoilSendOrder;   
     public int Number = 0;
     // Start is called before the first frame update
