@@ -31,7 +31,7 @@ public class SimpleStaticAgent : MonoBehaviour
     void Start()
     {
          nmAgent = GetComponent<NavMeshAgent>();
-         TotalCoil = RailSkid.GetComponent<RailCoilValue>(); 
+         TotalCoil = RailSkid.GetComponent<RailCoilValue>();
     }
 
     // Update is called once per frame
@@ -68,7 +68,7 @@ public class SimpleStaticAgent : MonoBehaviour
         nmAgent.Stop();
         GameObject moveCoil;
         moveCoil = TotalCoil.Sendcoil[index];
-        moveCoil.transform.position = CartLeftPos.transform.position;
+        moveCoil.transform.position = PickCoil.transform.position;
         moveCoil.transform.SetParent(PickCoil);
     }
     public void MoveCart()//3
@@ -79,10 +79,12 @@ public class SimpleStaticAgent : MonoBehaviour
 
     public void DownCoil()//4
     {
+        Vector3 CoilRotation = new Vector3(0f, -90f, 90f);
         nmAgent.Stop();
         GameObject moveCoil;
         moveCoil = TotalCoil.Sendcoil[index];
         moveCoil.transform.position = LeftSkid.transform.position;
+        moveCoil.transform.eulerAngles = CoilRotation;
         moveCoil.transform.SetParent(LeftSkid);
     }
 
