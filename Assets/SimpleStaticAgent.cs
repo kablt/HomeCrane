@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using Unity.MLAgents;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,7 +12,10 @@ public class SimpleStaticAgent : MonoBehaviour
     NavMeshAgent nmAgent;
     RailCoilValue TotalCoil;
     RailCoildata coil;
-    public Transform originPos;
+    public Transform originPos; // 기본대기위치
+    public Transform LeftSkid; // 카트의 왼쪽 스키드 위치
+    public Transform CartLeftPos; // 카트의 왼쪽 앞 위치
+    public Transform PickCoil; // 코일을 들었을떄의 코일위치
     int index = 0;
 
     public GameObject RailSkid;
@@ -35,7 +39,7 @@ public class SimpleStaticAgent : MonoBehaviour
     {
         
     }
-    public void OnAnimatorMove()
+    public void OnAnimatorMove()// 1
     {
         if(index > 19)
         {
@@ -47,6 +51,7 @@ public class SimpleStaticAgent : MonoBehaviour
        coil = TotalCoil.Sendcoil[index].GetComponent<RailCoildata>();
         if(coil.pickup == true)
         {
+           nmAgent.Resume(); // 기본 SetDestination함수를 다시 실행시켜도 작동하지않음. resume를 사용해서 재사용해주어야함
            target= coil.targetPosition;
            nmAgent.SetDestination(target.position);
            coil.pickup = false;
@@ -57,5 +62,29 @@ public class SimpleStaticAgent : MonoBehaviour
             OnAnimatorMove();
         }
     }
+
+    public void PickUpCoil()//2
+    {
+        nmAgent.Stop();
+        GameObject moveCoil;
+        moveCoil = TotalCoil.Sendcoil[index];
+        moveCoil.transform.position = CartLeftPos.transform.position;
+        moveCoil.transform.SetParent(PickCoil);
+    }
+    public void MoveCart()//3
+    {
+        nmAgent.SetDestination(CartLeftPos.position);
+        nmAgent.Resume();
+    }
+
+    public void DownCoil()//4
+    {
+        nmAgent.Stop();
+        GameObject moveCoil;
+        moveCoil = TotalCoil.Sendcoil[index];
+        moveCoil.transform.position = LeftSkid.transform.position;
+        moveCoil.transform.SetParent(LeftSkid);
+    }
+
     
 }
