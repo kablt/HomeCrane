@@ -17,6 +17,12 @@ public class SimpleStaticAgent : MonoBehaviour
     public Transform CartLeftPos; // 카트의 왼쪽 앞 위치
     public Transform PickCoil; // 코일을 들었을떄의 코일위치
     int index = 0;
+    public bool CartPosBool;// 카트가 지정된 위치에 있는가
+    bool idle;
+    bool movecoil;
+    bool movecart;
+    bool pickup;
+    bool pickdown;
 
     public GameObject RailSkid;
 
@@ -24,31 +30,78 @@ public class SimpleStaticAgent : MonoBehaviour
     {
         Idle, // 옮길 물건이 없으면 지정된 위치에서 대기
         SearchMove,//물건 검색후 물건앞으로 이동(목적지 탐색, 이동 , 코일방향으로 회전 드는 모션 , 카트 위치로 이동)
-        
+        Pickup,
+        CartMove,
+        PickDown
         
     }
+    Status st;
     // Start is called before the first frame update
     void Start()
     {
          nmAgent = GetComponent<NavMeshAgent>();
          TotalCoil = RailSkid.GetComponent<RailCoilValue>();
+         st = Status.Idle;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    public void OnAnimatorMove()// 1
-    {
-        if(index > 19)
+        if(target != null &&Vector3.Distance(transform.position, target.position) < 0.1f && st == Status.SearchMove)
         {
-            target = originPos;
-            nmAgent.SetDestination(target.position);
-            Debug.Log("더이상 옮길 코일이 남아있지않습니다");
-            return;
+            st = Status.Pickup; 
         }
-       coil = TotalCoil.Sendcoil[index].GetComponent<RailCoildata>();
+        if(target != null && st == Status.CartMove && CartPosBool)
+        {
+            if(Vector3.Distance(transform.position, CartLeftPos.position) < 0.1f)
+            {
+                st = Status.PickDown;
+            }
+        }
+        switch(st)
+        {
+            case Status.Idle:
+                if (idle)
+                { IdlePos(); }              
+                break;
+            case Status.SearchMove:
+                if (movecoil)
+                { OnAnimatorMove(); }        
+                break;
+            case Status.Pickup:
+                PickUpCoil();
+                break;
+            case Status.CartMove:
+                if(movecart)
+                {MoveCart();}
+                break;
+            case Status.PickDown: 
+                if(!pickdown)
+                {DownCoil();}
+                break;
+        }
+    }
+
+    void IdlePos()
+    {
+        if(index > 19 && !idle)
+        {
+        nmAgent.SetDestination(originPos.position);
+        }
+        if(!pickup && !pickdown && !movecart)
+        {
+            idle = false;
+            pickup = true;
+            pickdown = true;
+            movecart = true;
+            movecoil = true;
+            st = Status.SearchMove;
+        }
+    }
+    void OnAnimatorMove()// 1
+    {
+        movecoil = false;
+        coil = TotalCoil.Sendcoil[index].GetComponent<RailCoildata>();
         if(coil.pickup == true)
         {
            nmAgent.Resume(); // 기본 SetDestination함수를 다시 실행시켜도 작동하지않음. resume를 사용해서 재사용해주어야함
@@ -63,22 +116,32 @@ public class SimpleStaticAgent : MonoBehaviour
         }
     }
 
-    public void PickUpCoil()//2
+    void PickUpCoil()//2
     {
+        if (pickup) 
+        {
         nmAgent.Stop();
         GameObject moveCoil;
         moveCoil = TotalCoil.Sendcoil[index];
         moveCoil.transform.position = PickCoil.transform.position;
         moveCoil.transform.SetParent(PickCoil);
+        pickup = false;
+        }
+        if(!pickup)
+        {
+        st = Status.CartMove;
+        }
     }
-    public void MoveCart()//3
+    void MoveCart()//3
     {
+        movecart = false;
         nmAgent.SetDestination(CartLeftPos.position);
         nmAgent.Resume();
     }
 
-    public void DownCoil()//4
+    void DownCoil()//4
     {
+        pickdown = false;
         Vector3 CoilRotation = new Vector3(0f, -90f, 90f);
         nmAgent.Stop();
         GameObject moveCoil;
@@ -86,6 +149,8 @@ public class SimpleStaticAgent : MonoBehaviour
         moveCoil.transform.position = LeftSkid.transform.position;
         moveCoil.transform.eulerAngles = CoilRotation;
         moveCoil.transform.SetParent(LeftSkid);
+        idle = true;
+        st = Status.Idle;
     }
 
     
