@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using Unity.MLAgents;
 using UnityEngine;
@@ -39,6 +40,11 @@ public class SimpleStaticAgent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        idle = true;
+        CartPosBool = true;
+        pickup= false;
+        pickdown= false;
+        movecart= false;
          nmAgent = GetComponent<NavMeshAgent>();
          TotalCoil = RailSkid.GetComponent<RailCoilValue>();
          st = Status.Idle;
@@ -47,17 +53,6 @@ public class SimpleStaticAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(target != null &&Vector3.Distance(transform.position, target.position) < 0.1f && st == Status.SearchMove)
-        {
-            st = Status.Pickup; 
-        }
-        if(target != null && st == Status.CartMove && CartPosBool)
-        {
-            if(Vector3.Distance(transform.position, CartLeftPos.position) < 0.1f)
-            {
-                st = Status.PickDown;
-            }
-        }
         switch(st)
         {
             case Status.Idle:
@@ -66,7 +61,12 @@ public class SimpleStaticAgent : MonoBehaviour
                 break;
             case Status.SearchMove:
                 if (movecoil)
-                { OnAnimatorMove(); }        
+                { OnAnimatorMove(); }
+                if (target != null && Vector3.Distance(transform.position, target.position) < 1)
+                {
+                    Debug.Log("pickup상태변환 체크");
+                    st = Status.Pickup;
+                }
                 break;
             case Status.Pickup:
                 PickUpCoil();
@@ -74,9 +74,18 @@ public class SimpleStaticAgent : MonoBehaviour
             case Status.CartMove:
                 if(movecart)
                 {MoveCart();}
+                if (target != null&& CartPosBool)
+                {
+                    Debug.Log("로봇코일 내려놓는디버그");
+                    if (Vector3.Distance(transform.position, CartLeftPos.position) < 1)
+                    {
+                        Debug.Log("코일 내려놓는 조건문 입장 확인");
+                        st = Status.PickDown;
+                    }
+                }
                 break;
             case Status.PickDown: 
-                if(!pickdown)
+                if(pickdown)
                 {DownCoil();}
                 break;
         }
@@ -86,6 +95,7 @@ public class SimpleStaticAgent : MonoBehaviour
     {
         if(index > 19 && !idle)
         {
+            Debug.Log("아이들포지에서 처리함");
         nmAgent.SetDestination(originPos.position);
         }
         if(!pickup && !pickdown && !movecart)
@@ -100,6 +110,12 @@ public class SimpleStaticAgent : MonoBehaviour
     }
     void OnAnimatorMove()// 1
     {
+        if(index >19)
+        {
+            Debug.Log("애니메이터에서 처리함");
+            nmAgent.SetDestination(originPos.position);
+        }
+        Debug.Log("애니메이터므브확인");
         movecoil = false;
         coil = TotalCoil.Sendcoil[index].GetComponent<RailCoildata>();
         if(coil.pickup == true)
@@ -149,7 +165,10 @@ public class SimpleStaticAgent : MonoBehaviour
         moveCoil.transform.position = LeftSkid.transform.position;
         moveCoil.transform.eulerAngles = CoilRotation;
         moveCoil.transform.SetParent(LeftSkid);
+        if(index < 19)
+        {
         idle = true;
+        }
         st = Status.Idle;
     }
 

@@ -7643,6 +7643,7 @@ MonoBehaviour:
   LeftSkid: {fileID: 1144726302}
   CartLeftPos: {fileID: 1316318152}
   PickCoil: {fileID: 516977847}
+  CartPosBool: 0
   RailSkid: {fileID: 171522863}
 --- !u!1001 &238141709
 PrefabInstance:
@@ -22077,7 +22078,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.055000003, y: 0.013, z: 0.105000004}
   m_MoveThreshold: 0.1
-  m_Carve: 1
+  m_Carve: 0
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.033, y: 0.010000001, z: -0.095000006}
   m_TimeToStationary: 0.5
@@ -22603,6 +22604,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: cart2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586882954999126326, guid: 235b2329fa3e72445a4464e084ddae64,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.245
+      objectReference: {fileID: 0}
+    - target: {fileID: 7087461569137482064, guid: 235b2329fa3e72445a4464e084ddae64,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.245
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -39,6 +39,7 @@ public class CraneMove : MonoBehaviour
     CraneStatus cranstatus;
     void Start()
     {
+        InitializePointB();
         cranestatusUI = GameObject.Find("CranePanelStatus");
         cranstatus = CraneStatus.Idle;
         cranestatus = cranestatusUI.GetComponent<CraneStatusUI>();
@@ -225,8 +226,6 @@ public class CraneMove : MonoBehaviour
     IEnumerator MovePoint()
     {
         cranestatus.MoveCoil();
-        InitializePointB();
-
         // Body를 x축으로 이동
         Vector3 targetpositionX = new Vector3(PointB.position.x, CraneBody.transform.position.y, CraneBody.transform.position.z);
         while (Vector3.Distance(CraneBody.transform.position, targetpositionX) > 0.01f)
@@ -251,7 +250,7 @@ public class CraneMove : MonoBehaviour
             yield return null;
         }
         isMovingToB = false;
-
+        InitializePointB();
         // 해당 위치 도착 후 처리할 내용 추가
     }
 
