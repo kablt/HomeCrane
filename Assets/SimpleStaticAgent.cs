@@ -40,6 +40,7 @@ public class SimpleStaticAgent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         idle = true;
         CartPosBool = true;
         pickup= false;
@@ -57,7 +58,7 @@ public class SimpleStaticAgent : MonoBehaviour
         {
             case Status.Idle:
                 if (idle)
-                { IdlePos(); }              
+                {IdlePos(); }              
                 break;
             case Status.SearchMove:
                 if (movecoil)
@@ -74,14 +75,10 @@ public class SimpleStaticAgent : MonoBehaviour
             case Status.CartMove:
                 if(movecart)
                 {MoveCart();}
-                if (target != null&& CartPosBool)
-                {
-                    Debug.Log("로봇코일 내려놓는디버그");
-                    if (Vector3.Distance(transform.position, CartLeftPos.position) < 1)
-                    {
-                        Debug.Log("코일 내려놓는 조건문 입장 확인");
-                        st = Status.PickDown;
-                    }
+                if (target != null&& CartPosBool && Vector3.Distance(transform.position, CartLeftPos.position) < 1)
+                {                
+                    Debug.Log("코일 내려놓는 조건문 입장 확인");
+                    st = Status.PickDown;
                 }
                 break;
             case Status.PickDown: 
@@ -93,12 +90,18 @@ public class SimpleStaticAgent : MonoBehaviour
 
     void IdlePos()
     {
-        if(index > 19 && !idle)
+        if(index ==19)
+        {
+            idle = false;
+        }
+        if (index > 18 && !idle)
         {
             Debug.Log("아이들포지에서 처리함");
-        nmAgent.SetDestination(originPos.position);
+            nmAgent.Stop();
+            nmAgent.SetDestination(originPos.position);
+            nmAgent.Resume();
         }
-        if(!pickup && !pickdown && !movecart)
+        if(!pickup && !pickdown && !movecart && idle)
         {
             idle = false;
             pickup = true;
@@ -115,20 +118,24 @@ public class SimpleStaticAgent : MonoBehaviour
             Debug.Log("애니메이터에서 처리함");
             nmAgent.SetDestination(originPos.position);
         }
-        Debug.Log("애니메이터므브확인");
-        movecoil = false;
-        coil = TotalCoil.Sendcoil[index].GetComponent<RailCoildata>();
-        if(coil.pickup == true)
-        {
-           nmAgent.Resume(); // 기본 SetDestination함수를 다시 실행시켜도 작동하지않음. resume를 사용해서 재사용해주어야함
-           target= coil.targetPosition;
-           nmAgent.SetDestination(target.position);
-           coil.pickup = false;
-        }
         else
         {
-            index++;
-            OnAnimatorMove();
+            Debug.Log("애니메이터므브확인");
+            movecoil = false;
+            coil = TotalCoil.Sendcoil[index].GetComponent<RailCoildata>();
+            if(coil.pickup == true)
+            {
+               nmAgent.Resume(); // 기본 SetDestination함수를 다시 실행시켜도 작동하지않음. resume를 사용해서 재사용해주어야함
+               target= coil.targetPosition;
+               nmAgent.SetDestination(target.position);
+               coil.pickup = false;
+            }
+            else
+            {
+                index++;
+                OnAnimatorMove();
+            }
+
         }
     }
 
@@ -164,11 +171,8 @@ public class SimpleStaticAgent : MonoBehaviour
         moveCoil = TotalCoil.Sendcoil[index];
         moveCoil.transform.position = LeftSkid.transform.position;
         moveCoil.transform.eulerAngles = CoilRotation;
-        moveCoil.transform.SetParent(LeftSkid);
-        if(index < 19)
-        {
+        moveCoil.transform.SetParent(LeftSkid);    
         idle = true;
-        }
         st = Status.Idle;
     }
 

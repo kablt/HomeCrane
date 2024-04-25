@@ -7641,7 +7641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originPos: {fileID: 416703050}
   LeftSkid: {fileID: 1144726302}
-  CartLeftPos: {fileID: 1316318152}
+  CartLeftPos: {fileID: 1485642021}
   PickCoil: {fileID: 516977847}
   CartPosBool: 0
   RailSkid: {fileID: 171522863}
@@ -22073,7 +22073,7 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1028559534}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 0.055000003, y: 0.013, z: 0.105000004}
@@ -27844,12 +27844,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: -0.004}
   m_TimeToStationary: 0.5
---- !u!4 &1316318152 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5586882954999126326, guid: 235b2329fa3e72445a4464e084ddae64,
-    type: 3}
-  m_PrefabInstance: {fileID: 1055895051}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1321140485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31842,6 +31836,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1480205285}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1485642020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1485642021}
+  m_Layer: 0
+  m_Name: CartLeftPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1485642021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485642020}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 58.62, y: 0.8000059, z: 18.17}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1485814968
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45451,4 +45476,5 @@ SceneRoots:
   - {fileID: 1099574872}
   - {fileID: 171522864}
   - {fileID: 416703050}
+  - {fileID: 1485642021}
   - {fileID: 1055895051}
