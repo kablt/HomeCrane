@@ -23,7 +23,7 @@ public class CraneMove : MonoBehaviour
     public bool moveStatus = true;
     public Transform PointB;
     public Transform[] SkidPositions;
-    //크레인 코루틴 반복 방지
+    //크레인 코루틴 반복 방지용 불 변수 3개
     private bool isMovingPickUpPoint = false;
     private bool isDetectingCoil = false;
     private bool isMovingToB = false;
